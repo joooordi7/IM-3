@@ -1,0 +1,178 @@
+/* Farbthema von FC Barcelona */
+:root {
+    --barca-blue: #004D98;
+    --barca-granate: #A50044;
+    --barca-yellow: #FFCB00;
+    --barca-white: #FFFFFF;
+    --gradient: linear-gradient(135deg, #004D98, #A50044);
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--barca-white);
+    color: var(--barca-blue);
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    background-color: var(--barca-blue);
+    color: var(--barca-yellow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.logo-container img {
+    height: 80px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.logo-container img:hover {
+    transform: scale(1.1);
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    color: var(--barca-yellow);
+}
+
+/* Navigation */
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    color: var(--barca-yellow);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--barca-white);
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+    background: var(--gradient);
+    color: var(--barca-white);
+    animation: backgroundShift 10s infinite alternate;
+}
+
+/* Futuristisches Hintergrund-Animation */
+@keyframes backgroundShift {
+    from {
+        background-position: 0% 0%;
+    }
+    to {
+        background-position: 100% 100%;
+    }
+}
+
+h2 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--barca-yellow);
+    border-bottom: 2px solid var(--barca-yellow);
+    padding-bottom: 10px;
+}
+
+/* Canvas für Diagramme */
+canvas {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
+    height: 400px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+canvas:hover {
+    transform: scale(1.05);
+}
+
+/* Spielplan Cards */
+#matchSchedule {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.match-card {
+    background-color: rgba(0, 77, 152, 0.7);
+    color: var(--barca-white);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.match-card:hover {
+    transform: translateY(-10px);
+}
+
+/* Kalender für Spielplan */
+#calendar {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1.2em;
+    min-width: 400px;
+}
+
+#calendar thead tr {
+    background-color: var(--barca-blue);
+    color: var(--barca-yellow);
+    text-align: left;
+    font-weight: bold;
+}
+
+#calendar th, #calendar td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+#calendar tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+#calendar tbody tr:nth-of-type(even) {
+    background-color: var(--barca-granate);
+    color: var(--barca-white);
+}
+
+#calendar tbody tr:hover {
+    background-color: var(--barca-yellow);
+    color: var(--barca-blue);
+}
+
+/* Footer */
+footer {
+    background-color: var(--barca-blue);
+    color: var(--barca-yellow);
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    z-index: 100;
+}
