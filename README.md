@@ -1,1 +1,7 @@
-# IM-3
+#Beschreibung
+
+#Learnings
+
+#Schwierigkeiten
+
+#Benutzte Ressourcen
