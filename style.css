@@ -21,6 +21,7 @@ header {
     background-color: var(--barca-blue);
     color: var(--barca-yellow);
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
@@ -45,7 +46,14 @@ h1 {
 nav ul {
     list-style-type: none;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 15px;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 5px 10px;
 }
 
 nav ul li a {
@@ -64,6 +72,16 @@ main {
     padding: 20px;
     background: var(--gradient);
     color: var(--barca-white);
+    animation: backgroundShift 10s infinite alternate;
+}
+
+@keyframes backgroundShift {
+    from {
+        background-position: 0% 0%;
+    }
+    to {
+        background-position: 100% 100%;
+    }
 }
 
 h2 {
@@ -72,18 +90,16 @@ h2 {
     font-size: 1.8rem;
     margin-bottom: 20px;
     color: var(--barca-yellow);
+    border-bottom: 2px solid var(--barca-yellow);
+    padding-bottom: 10px;
     text-align: center;
 }
 
 /* Canvas für Diagramme */
-.chart-container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
 canvas {
     width: 100%;
+    max-width: 100%;
+    margin: 40px 0;
     height: 400px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
@@ -111,12 +127,17 @@ canvas:hover {
 #calendar thead tr {
     background-color: var(--barca-blue);
     color: var(--barca-yellow);
+    text-align: left;
     font-weight: bold;
 }
 
 #calendar th, #calendar td {
     padding: 12px 15px;
     border: 1px solid #ddd;
+}
+
+#calendar tbody tr {
+    border-bottom: 1px solid #ddd;
 }
 
 #calendar tbody tr:nth-of-type(even) {
@@ -135,6 +156,10 @@ footer {
     color: var(--barca-yellow);
     text-align: center;
     padding: 20px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Responsive Design */
@@ -146,6 +171,10 @@ footer {
     nav ul {
         flex-direction: column;
         gap: 10px;
+    }
+
+    nav ul li {
+        margin: 0;
     }
 
     canvas {
