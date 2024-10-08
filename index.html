@@ -3,58 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FC Barcelona | Future Stats</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Hansi Flick Effect | FC Barcelona</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Beachte die korrekte Verlinkung zu deinem CSS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-3d"></script>
-    <script defer src="script.js"></script>
+    <script defer src="script.js"></script> <!-- JavaScript für das Laden der Daten -->
 </head>
 <body>
     <header>
         <div class="logo-container">
-            <img src="barca-logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
-            <h1>Barcelona Future Stats</h1>
+            <img src="fc_barcelona_logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
+            <h1>Hansi Flick Effect | FC Barcelona</h1>
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="#statistiken">Statistiken</a></li>
-                <li><a href="#vorhersagen">Vorhersagen</a></li>
-                <li><a href="#match-calendar">Spielplan</a></li>
+                <li><a href="index.html">Hauptseite</a></li>
+                <li><a href="vergleich.html">Vergleich mit Xavi</a></li>
+                <li><a href="spielplan.html">Spielplan</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
+        <!-- Section über Hansi Flick -->
+        <section id="hansi-flick">
+            <h2>Hansi Flick und sein Einfluss auf FC Barcelona</h2>
+            <p>Seit seiner Ankunft hat Hansi Flick den FC Barcelona transformiert. Mit seiner taktischen Raffinesse und seinem Fokus auf Pressing und schnelle Ballzirkulation hat er das Spiel des Teams dynamisiert.</p>
+        </section>
+
+        <!-- Statistiken Sektion -->
         <section id="statistiken">
-            <h2>Team-Statistiken in 3D</h2>
-            <canvas id="teamStatsChart"></canvas> <!-- Diagramm für Teamstatistiken -->
+            <h2>Team-Statistiken unter Hansi Flick</h2>
+            <canvas id="teamStatsChart"></canvas> <!-- Diagramm für Statistiken -->
         </section>
 
-        <section id="vorhersagen">
-            <h2>Spielvorhersagen in 3D</h2>
-            <canvas id="predictionsChart"></canvas> <!-- Diagramm für Spielvorhersagen -->
-        </section>
-
-        <!-- Kalender für Spielplan -->
-        <section id="match-calendar">
-            <h2>FC Barcelona Match Calendar 2024/2025</h2>
-            <table id="calendar">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Opponent</th>
-                        <th>Competition</th>
-                        <th>Location</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody id="matchSchedule"></tbody>
-            </table>
+        <!-- Spielplan Sektion -->
+        <section id="spielplan">
+            <h2>Nächste 15 Spiele | FC Barcelona Matchplan</h2>
+            <div class="table-responsive">
+                <table id="calendar">
+                    <thead>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Gegner</th>
+                            <th>Wettbewerb</th>
+                            <th>Ort</th>
+                            <th>Zeit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dynamische Inhalte, die durch JavaScript oder PHP geladen werden können -->
+                        <tr>
+                            <td>Okt 24, 2024</td>
+                            <td>Getafe CF</td>
+                            <td>La Liga</td>
+                            <td>Heim</td>
+                            <td>19:00</td>
+                        </tr>
+                        <tr>
+                            <td>Okt 27, 2024</td>
+                            <td>CA Osasuna</td>
+                            <td>La Liga</td>
+                            <td>Auswärts</td>
+                            <td>19:00</td>
+                        </tr>
+                        <tr>
+                            <td>Nov 1, 2024</td>
+                            <td>Young Boys</td>
+                            <td>Champions League</td>
+                            <td>Heim</td>
+                            <td>21:00</td>
+                        </tr>
+                        <tr>
+                            <td>Nov 5, 2024</td>
+                            <td>Deportivo Alavés</td>
+                            <td>La Liga</td>
+                            <td>Auswärts</td>
+                            <td>14:15</td>
+                        </tr>
+                        <tr>
+                            <td>Nov 10, 2024</td>
+                            <td>Sevilla</td>
+                            <td>La Liga</td>
+                            <td>Heim</td>
+                            <td>21:00</td>
+                        </tr>
+                        <tr>
+                            <td>Nov 14, 2024</td>
+                            <td>Bayern Munich</td>
+                            <td>Champions League</td>
+                            <td>Heim</td>
+                            <td>21:00</td>
+                        </tr>
+                        <tr>
+                            <td>Nov 18, 2024</td>
+                            <td>Real Madrid</td>
+                            <td>La Liga</td>
+                            <td>Auswärts</td>
+                            <td>TBA</td>
+                        </tr>
+                        <!-- Weitere Spiele bis zu 15 hinzufügen -->
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 FC Barcelona | Future Stats</p>
+        <p>&copy; 2024 FC Barcelona | Hansi Flick Effect</p>
     </footer>
 </body>
 </html>

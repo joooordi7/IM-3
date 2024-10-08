@@ -21,17 +21,15 @@ header {
     background-color: var(--barca-blue);
     color: var(--barca-yellow);
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .logo-container img {
-    height: 80px;
+    height: 60px;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
@@ -45,13 +43,21 @@ h1 {
     text-transform: uppercase;
     font-size: 1.5rem;
     color: var(--barca-yellow);
+    flex: 1;
+    text-align: center;
 }
 
-/* Navigation */
 nav ul {
     list-style-type: none;
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 5px 10px;
 }
 
 nav ul li a {
@@ -70,34 +76,24 @@ main {
     padding: 20px;
     background: var(--gradient);
     color: var(--barca-white);
-    animation: backgroundShift 10s infinite alternate;
-}
-
-/* Futuristisches Hintergrund-Animation */
-@keyframes backgroundShift {
-    from {
-        background-position: 0% 0%;
-    }
-    to {
-        background-position: 100% 100%;
-    }
 }
 
 h2 {
     font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 20px;
     color: var(--barca-yellow);
     border-bottom: 2px solid var(--barca-yellow);
     padding-bottom: 10px;
+    text-align: center;
 }
 
 /* Canvas für Diagramme */
 canvas {
     width: 100%;
-    max-width: 800px;
-    margin: 40px auto;
+    max-width: 100%;
+    margin: 40px 0;
     height: 400px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
@@ -109,32 +105,15 @@ canvas:hover {
     transform: scale(1.05);
 }
 
-/* Spielplan Cards */
-#matchSchedule {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
+/* Responsive Table */
+.table-responsive {
+    overflow-x: auto;
+    margin: 20px 0;
 }
 
-.match-card {
-    background-color: rgba(0, 77, 152, 0.7);
-    color: var(--barca-white);
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-}
-
-.match-card:hover {
-    transform: translateY(-10px);
-}
-
-/* Kalender für Spielplan */
 #calendar {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
     font-size: 1.2em;
     min-width: 400px;
 }
@@ -171,36 +150,32 @@ footer {
     color: var(--barca-yellow);
     text-align: center;
     padding: 20px;
-    position: fixed;
-    width: 100%;
+    position: relative;
     bottom: 0;
-    z-index: 100;
-}
-
-/* Tabelle für den Spielplan */
-table {
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #ddd;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.2rem;
+    }
 
-th {
-    background-color: var(--barca-blue);
-    color: var(--barca-yellow);
-    font-weight: bold;
-}
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
 
-tr:nth-child(even) {
-    background-color: var(--barca-granate);
-    color: var(--barca-white);
-}
+    nav ul li {
+        margin: 0;
+    }
 
-tr:hover {
-    background-color: var(--barca-yellow);
-    color: var(--barca-blue);
+    canvas {
+        height: 300px;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
 }
