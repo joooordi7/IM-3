@@ -1,117 +1,104 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Teamstatistik-Diagramm
+    const teamStatsChartCanvas = document.getElementById('teamStatsChart').getContext('2d');
 
-    // Funktion zum Abrufen von API-Daten
-    async function fetchData(apiUrl) {
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error('Fehler beim Abrufen der Daten:', error);
-        }
-    }
+    const teamStatsData = {
+        labels: ['Tore', 'Vorlagen', 'Ballbesitz (%)', 'Schüsse aufs Tor', 'Pässe', 'Zweikämpfe gewonnen'],
+        datasets: [{
+            label: 'Teamstatistiken unter Hansi Flick',
+            data: [65, 40, 68, 120, 600, 150],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.6)',
+                'rgba(54, 162, 235, 0.6)',
+                'rgba(255, 206, 86, 0.6)',
+                'rgba(75, 192, 192, 0.6)',
+                'rgba(153, 102, 255, 0.6)',
+                'rgba(255, 159, 64, 0.6)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    };
 
-    // Team-Statistiken Übersicht (Beispiel-Daten)
-    const ctx = document.getElementById('teamStatsOverviewChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar', // Balkendiagramm
-        data: {
-            labels: ['Ballbesitz', 'Tore', 'Pässe', 'Torschüsse'],
-            datasets: [{
-                label: 'Team-Statistiken',
-                data: [60, 25, 500, 100], // Beispielwerte, können durch API-Daten ersetzt werden
-                backgroundColor: ['#A50044', '#004D98', '#FFCB00', '#FFFFFF'],
-                borderColor: '#004D98',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: { beginAtZero: true }
-            },
-            plugins: {
-                legend: { display: true, position: 'top' }
+    const teamStatsOptions = {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
             }
         }
+    };
+
+    new Chart(teamStatsChartCanvas, {
+        type: 'bar',  // Typ des Diagramms (Bar chart)
+        data: teamStatsData,
+        options: teamStatsOptions
     });
 
-    // Team-Statistiken Seite (ausführliches Diagramm)
-    const teamStatsCtx = document.getElementById('teamStatsChart');
-    if (teamStatsCtx) {
-        new Chart(teamStatsCtx.getContext('2d'), {
-            type: 'line', // Liniendiagramm für detaillierte Team-Statistiken
-            data: {
-                labels: ['Spiel 1', 'Spiel 2', 'Spiel 3', 'Spiel 4'],
-                datasets: [{
-                    label: 'Tore',
-                    data: [2, 3, 1, 4], // Beispielwerte
-                    borderColor: '#004D98',
-                    backgroundColor: 'rgba(0, 77, 152, 0.5)',
-                    fill: true
-                }, {
-                    label: 'Ballbesitz (%)',
-                    data: [55, 60, 52, 58], // Beispielwerte
-                    borderColor: '#A50044',
-                    backgroundColor: 'rgba(165, 0, 68, 0.5)',
-                    fill: true
-                }]
-            },
+    // Beispiel für den Vergleich (Vergleichsseite: Hansi Flick vs. Xavi)
+    const winPercentageChartCanvas = document.getElementById('winPercentageChart')?.getContext('2d');
+    const goalsScoredChartCanvas = document.getElementById('goalsScoredChart')?.getContext('2d');
+
+    if (winPercentageChartCanvas) {
+        const winPercentageData = {
+            labels: ['Hansi Flick', 'Xavi'],
+            datasets: [{
+                label: 'Siegquote (%)',
+                data: [70, 65], // Beispiel-Daten für den Vergleich
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        new Chart(winPercentageChartCanvas, {
+            type: 'pie',
+            data: winPercentageData
+        });
+    }
+
+    if (goalsScoredChartCanvas) {
+        const goalsScoredData = {
+            labels: ['Hansi Flick', 'Xavi'],
+            datasets: [{
+                label: 'Erzielte Tore',
+                data: [90, 85], // Beispiel-Daten
+                backgroundColor: [
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        new Chart(goalsScoredChartCanvas, {
+            type: 'bar',
+            data: goalsScoredData,
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
                 scales: {
-                    y: { beginAtZero: true }
-                },
-                plugins: {
-                    legend: { display: true, position: 'top' }
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
         });
     }
-
-    // Spielvorhersagen Seite
-    const predictionsCtx = document.getElementById('predictionsChart');
-    if (predictionsCtx) {
-        new Chart(predictionsCtx.getContext('2d'), {
-            type: 'pie', // Tortendiagramm für Spielvorhersagen
-            data: {
-                labels: ['Sieg', 'Unentschieden', 'Niederlage'],
-                datasets: [{
-                    label: 'Vorhersage Wahrscheinlichkeiten',
-                    data: [70, 20, 10], // Beispielwerte
-                    backgroundColor: ['#004D98', '#FFCB00', '#A50044']
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: true, position: 'top' }
-                }
-            }
-        });
-    }
-
-    // Spielplan Tabelle (Beispiel-Daten)
-    const matchSchedule = document.getElementById('calendar');
-    if (matchSchedule) {
-        fetchData('api/spielplan.json') // Beispiel-API-Aufruf, ersetze durch die echte API
-            .then(data => {
-                const tableBody = matchSchedule.querySelector('tbody');
-                data.matches.forEach(match => {
-                    const row = `<tr>
-                        <td>${new Date(match.date).toLocaleDateString()}</td>
-                        <td>${match.opponent}</td>
-                        <td>${match.competition}</td>
-                        <td>${match.location}</td>
-                        <td>${new Date(match.date).toLocaleTimeString()}</td>
-                    </tr>`;
-                    tableBody.innerHTML += row;
-                });
-            })
-            .catch(error => console.error('Fehler beim Laden des Spielplans:', error));
-    }
-
 });
