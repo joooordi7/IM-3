@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FC Barcelona | Future Stats</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-3d"></script>
     <script defer src="script.js"></script>
@@ -12,14 +12,14 @@
 <body>
     <header>
         <div class="logo-container">
-            <img src="LOGO.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
+            <img src="barca-logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
             <h1>Barcelona Future Stats</h1>
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="statistiken.html">Statistiken</a></li>
-                <li><a href="vorhersagen.html">Vorhersagen</a></li>
-                <li><a href="spielplan.html">Spielplan</a></li>
+                <li><a href="#statistiken">Statistiken</a></li>
+                <li><a href="#vorhersagen">Vorhersagen</a></li>
+                <li><a href="#match-calendar">Spielplan</a></li>
             </ul>
         </nav>
     </header>
@@ -27,12 +27,12 @@
     <main>
         <section id="statistiken">
             <h2>Team-Statistiken in 3D</h2>
-            <canvas id="teamStatsChart"></canvas>
+            <canvas id="teamStatsChart"></canvas> <!-- Diagramm für Teamstatistiken -->
         </section>
 
         <section id="vorhersagen">
             <h2>Spielvorhersagen in 3D</h2>
-            <canvas id="predictionsChart"></canvas>
+            <canvas id="predictionsChart"></canvas> <!-- Diagramm für Spielvorhersagen -->
         </section>
 
         <!-- Kalender für Spielplan -->
@@ -48,57 +48,7 @@
                         <th>Time</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Sept 24, 2024</td>
-                        <td>Getafe CF</td>
-                        <td>La Liga</td>
-                        <td>Home</td>
-                        <td>19:00</td>
-                    </tr>
-                    <tr>
-                        <td>Sept 28, 2024</td>
-                        <td>CA Osasuna</td>
-                        <td>La Liga</td>
-                        <td>Away</td>
-                        <td>19:00</td>
-                    </tr>
-                    <tr>
-                        <td>Oct 1, 2024</td>
-                        <td>Young Boys</td>
-                        <td>Champions League</td>
-                        <td>Home</td>
-                        <td>19:00</td>
-                    </tr>
-                    <tr>
-                        <td>Oct 6, 2024</td>
-                        <td>Deportivo Alavés</td>
-                        <td>La Liga</td>
-                        <td>Away</td>
-                        <td>14:15</td>
-                    </tr>
-                    <tr>
-                        <td>Oct 20, 2024</td>
-                        <td>Sevilla</td>
-                        <td>La Liga</td>
-                        <td>Home</td>
-                        <td>21:00</td>
-                    </tr>
-                    <tr>
-                        <td>Oct 23, 2024</td>
-                        <td>Bayern Munich</td>
-                        <td>Champions League</td>
-                        <td>Home</td>
-                        <td>21:00</td>
-                    </tr>
-                    <tr>
-                        <td>Oct 27, 2024</td>
-                        <td>Real Madrid</td>
-                        <td>La Liga</td>
-                        <td>Away</td>
-                        <td>TBA</td>
-                    </tr>
-                </tbody>
+                <tbody id="matchSchedule"></tbody>
             </table>
         </section>
     </main>

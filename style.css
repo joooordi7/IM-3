@@ -176,3 +176,31 @@ footer {
     bottom: 0;
     z-index: 100;
 }
+
+/* Tabelle für den Spielplan */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: var(--barca-blue);
+    color: var(--barca-yellow);
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: var(--barca-granate);
+    color: var(--barca-white);
+}
+
+tr:hover {
+    background-color: var(--barca-yellow);
+    color: var(--barca-blue);
+}

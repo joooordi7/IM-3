@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Funktion zum Abrufen von API-Daten
-    async function fetchData(apiUrl, headers) {
+    async function fetchData(apiUrl) {
         try {
-            const response = await fetch(apiUrl, { headers });
+            const response = await fetch(apiUrl);
             const data = await response.json();
             return data;
         } catch (error) {
@@ -10,17 +10,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Beispiel für den Abruf von Football-Data API
+    // Abrufen der Spieldaten von Football-Data API (Team Statistiken)
     fetchData('php/football_data.php').then(data => {
-        // Beispiel-Diagramm mit den abgerufenen Daten von Football-Data API
+        // Beispiel-Diagramm für Team-Statistiken
         const ctx = document.getElementById('teamStatsChart').getContext('2d');
         new Chart(ctx, {
-            type: 'bar3d', // Verwende den 3D-Balkendiagrammtyp
+            type: 'bar', // Balkendiagramm für Team-Statistiken
             data: {
                 labels: ['Ballbesitz', 'Tore', 'Pässe', 'Torschüsse'],
                 datasets: [{
                     label: 'Team-Statistiken',
-                    data: [60, 25, 500, 100], // Beispielwerte, die durch API-Daten ersetzt werden können
+                    data: [60, 25, 500, 100], // Beispielwerte, ersetze sie durch API-Daten
                     backgroundColor: ['#A50044', '#004D98', '#FFCB00', '#FFFFFF'],
                     borderColor: '#004D98',
                     borderWidth: 1
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 responsive: true,
                 maintainAspectRatio: false,
                 scales: {
-                    z: { beginAtZero: true }
+                    y: { beginAtZero: true }
                 },
                 plugins: {
                     legend: { display: true, position: 'top' }
@@ -39,14 +39,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Beispiel für den Abruf von Live-Spielen über RapidAPI
+    // Abrufen der Live-Spieldaten von RapidAPI
     fetchData('php/live_data.php').then(data => {
+        // Spielplan mit Live-Daten befüllen
         const liveMatches = data.map(match => {
-            return `<div class="match-card">
-                        <h3>${match.home_team} vs ${match.away_team}</h3>
-                        <p>Status: ${match.status}</p>
-                        <p>Datum: ${new Date(match.date).toLocaleDateString()}</p>
-                    </div>`;
+            return `<tr>
+                        <td>${new Date(match.start_time).toLocaleDateString()}</td>
+                        <td>${match.home_team} vs ${match.away_team}</td>
+                        <td>${match.competition}</td>
+                        <td>${match.venue ? match.venue : 'Unbekannt'}</td>
+                        <td>${new Date(match.start_time).toLocaleTimeString()}</td>
+                    </tr>`;
         });
         document.getElementById('matchSchedule').innerHTML = liveMatches.join('');
     });
@@ -54,12 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3D-Diagramm für Spielvorhersagen
     const predictionsCtx = document.getElementById('predictionsChart').getContext('2d');
     new Chart(predictionsCtx, {
-        type: 'line3d', // Verwende den 3D-Liniendiagrammtyp
+        type: 'line', // Liniendiagramm für Spielvorhersagen
         data: {
             labels: ['Spiel 1', 'Spiel 2', 'Spiel 3', 'Spiel 4'],
             datasets: [{
                 label: 'Wahrscheinlichkeit für Sieg (%)',
-                data: [70, 80, 65, 90], // Beispielwerte, die durch API-Daten ersetzt werden können
+                data: [70, 80, 65, 90], // Beispielwerte (durch API-Daten ersetzen)
                 borderColor: '#004D98',
                 fill: false,
                 tension: 0.1
@@ -69,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                z: { beginAtZero: true }
+                y: { beginAtZero: true }
             }
         }
     });
