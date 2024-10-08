@@ -47,56 +47,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Okt 24, 2024</td>
-                            <td>Getafe CF</td>
-                            <td>La Liga</td>
-                            <td>Heim</td>
-                            <td>19:00</td>
-                        </tr>
-                        <tr>
-                            <td>Okt 27, 2024</td>
-                            <td>CA Osasuna</td>
-                            <td>La Liga</td>
-                            <td>Auswärts</td>
-                            <td>19:00</td>
-                        </tr>
-                        <tr>
-                            <td>Nov 1, 2024</td>
-                            <td>Young Boys</td>
-                            <td>Champions League</td>
-                            <td>Heim</td>
-                            <td>21:00</td>
-                        </tr>
-                        <tr>
-                            <td>Nov 5, 2024</td>
-                            <td>Deportivo Alavés</td>
-                            <td>La Liga</td>
-                            <td>Auswärts</td>
-                            <td>14:15</td>
-                        </tr>
-                        <tr>
-                            <td>Nov 10, 2024</td>
-                            <td>Sevilla</td>
-                            <td>La Liga</td>
-                            <td>Heim</td>
-                            <td>21:00</td>
-                        </tr>
-                        <tr>
-                            <td>Nov 14, 2024</td>
-                            <td>Bayern Munich</td>
-                            <td>Champions League</td>
-                            <td>Heim</td>
-                            <td>21:00</td>
-                        </tr>
-                        <tr>
-                            <td>Nov 18, 2024</td>
-                            <td>Real Madrid</td>
-                            <td>La Liga</td>
-                            <td>Auswärts</td>
-                            <td>TBA</td>
-                        </tr>
-                        <!-- Weitere Spiele hinzufügen bis 15 Spiele -->
+                        <!-- Spielplan wird hier dynamisch eingefügt -->
                     </tbody>
                 </table>
             </div>
@@ -106,5 +57,57 @@
     <footer>
         <p>&copy; 2024 FC Barcelona | Hansi Flick Effect</p>
     </footer>
+
+    <script>
+        // Dynamisches Laden der Spielplan-Daten
+        fetch('fetch_matches.php')
+            .then(response => response.json())
+            .then(data => {
+                const calendarBody = document.querySelector('#calendar tbody');
+                calendarBody.innerHTML = ''; // Leeren des Tabelleninhalts
+
+                data.forEach(match => {
+                    const row = `<tr>
+                        <td>${new Date(match.date).toLocaleDateString()}</td>
+                        <td>${match.opponent}</td>
+                        <td>${match.competition || 'Unbekannt'}</td>
+                        <td>${match.location || 'Unbekannt'}</td>
+                        <td>${match.time || 'TBA'}</td>
+                    </tr>`;
+                    calendarBody.innerHTML += row;
+                });
+            })
+            .catch(error => console.error('Fehler beim Abrufen der Match-Daten:', error));
+
+        // Dynamisches Laden der Team-Statistiken
+        fetch('fetch_team_stats.php')
+            .then(response => response.json())
+            .then(stats => {
+                const ctx = document.getElementById('teamStatsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Ballbesitz', 'Tore', 'Schüsse'],
+                        datasets: [{
+                            label: 'Teamstatistiken',
+                            data: [stats.possession, stats.goals, stats.shots],
+                            backgroundColor: ['rgba(153, 102, 255, 0.6)', 'rgba(255, 159, 64, 0.6)', 'rgba(54, 162, 235, 0.6)'],
+                            borderColor: ['rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)', 'rgba(54, 162, 235, 1)'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Fehler beim Abrufen der Team-Statistiken:', error));
+    </script>
 </body>
 </html>

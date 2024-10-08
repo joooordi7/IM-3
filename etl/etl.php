@@ -1,108 +1,98 @@
 <?php
-// Header setzen, um JSON auszugeben
-header('Content-Type: application/json');
+// Include the config file, which already contains the database connection info and API key
+require_once 'config.php';
 
-// Verbindung zur Datenbank herstellen
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Funktion zur Abfrage der API-Daten mit cURL
+function fetchFootballData($apiKey, $teamId) {
+    $url = "https://api.football-data.org/v4/teams/81/matches";
 
-// Verbindung überprüfen
-if ($conn->connect_error) {
-    die("Verbindung fehlgeschlagen: " . $conn->connect_error);
-}
+    // Initialisiert eine cURL-Sitzung
+    $ch = curl_init($url);
 
-// 2. API-Daten von Football-Data.org (FC Barcelona)
-$apiKeyFootballData = '201773338b6445c483a3179e4d4f09e1';  // Dein Football-Data API-Schlüssel
-$teamId = 81;  // FC Barcelona Team-ID
-$urlFootballData = "https://api.football-data.org/v2/teams/$teamId/matches";
+    // Setzt Optionen
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        "X-Auth-Token: $apiKey"
+    ));
 
-// API-Header für Football-Data.org
-$optionsFootballData = [
-    "http" => [
-        "header" => "X-Auth-Token: $apiKeyFootballData\r\n"
-    ]
-];
+    // Führt die cURL-Sitzung aus und erhält den Inhalt
+    $response = curl_exec($ch);
 
-// API-Anfrage für Football-Data.org
-$contextFootballData = stream_context_create($optionsFootballData);
-$responseFootballData = file_get_contents($urlFootballData, false, $contextFootballData);
-
-// Fehlerbehandlung für Football-Data.org API
-if ($responseFootballData === FALSE) {
-    die('Fehler beim Abrufen der Daten von Football-Data.org.');
-}
-
-// JSON-Daten von Football-Data.org dekodieren
-$dataFootballData = json_decode($responseFootballData, true);
-$matchesFootballData = $dataFootballData['matches'];
-
-// 3. API-Daten von RapidAPI (Live Football Data)
-$apiKeyRapidAPI = '1e29d09e6amsh7da44754e7254c3p13089jsn0af37d90033a';  // Dein RapidAPI-Schlüssel
-$urlRapidAPI = 'https://free-api-live-football-data.p.rapidapi.com/matches';
-
-// API-Header für RapidAPI
-$headersRapidAPI = [
-    "X-RapidAPI-Key: $apiKeyRapidAPI",
-    "X-RapidAPI-Host: free-api-live-football-data.p.rapidapi.com"
-];
-
-// API-Anfrage für RapidAPI
-$optionsRapidAPI = [
-    "http" => [
-        "method" => "GET",
-        "header" => implode("\r\n", $headersRapidAPI)
-    ]
-];
-
-$contextRapidAPI = stream_context_create($optionsRapidAPI);
-$responseRapidAPI = file_get_contents($urlRapidAPI, false, $contextRapidAPI);
-
-// Fehlerbehandlung für RapidAPI
-if ($responseRapidAPI === FALSE) {
-    die('Fehler beim Abrufen der Daten von RapidAPI.');
-}
-
-// JSON-Daten von RapidAPI dekodieren
-$dataRapidAPI = json_decode($responseRapidAPI, true);
-$matchesRapidAPI = $dataRapidAPI['data'];
-
-// 4. Daten transformieren und in die Datenbank laden (ETL-Prozess)
-// Beispiel: Verarbeitung von Football-Data.org API-Daten
-foreach ($matchesFootballData as $match) {
-    $match_date = $match['utcDate'];
-    $home_team = $match['homeTeam']['name'];
-    $away_team = $match['awayTeam']['name'];
-    $competition = $match['competition']['name'];
-    $status = $match['status'];
-
-    // Daten in die Datenbank speichern
-    $stmt = $conn->prepare("INSERT INTO matches (match_date, home_team, away_team, competition, status) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $match_date, $home_team, $away_team, $competition, $status);
-
-    if (!$stmt->execute()) {
-        echo "Fehler beim Speichern des Spiels von Football-Data.org: " . $stmt->error;
+    // Überprüft auf Fehler
+    if(curl_errno($ch)) {
+        die('cURL Error: ' . curl_error($ch));
     }
+
+    // Schließt die cURL-Sitzung
+    curl_close($ch);
+
+    // Dekodiert die JSON-Antwort und gibt Daten zurück
+    return json_decode($response, true);
 }
 
-// Beispiel: Verarbeitung von RapidAPI-Daten
-foreach ($matchesRapidAPI as $match) {
-    $match_date = $match['match_date'];
-    $home_team = $match['home_team'];
-    $away_team = $match['away_team'];
-    $status = $match['status'];
+// Team-ID (z.B. FC Barcelona)
+$teamId = 81;  // Team-ID von FC Barcelona
 
-    // Daten in die Datenbank speichern
-    $stmt = $conn->prepare("INSERT INTO matches (match_date, home_team, away_team, competition, status) VALUES (?, ?, ?, ?, ?)");
-    $competition = "Unknown"; // Placeholder, da die RapidAPI keine Angabe für den Wettbewerb macht
-    $stmt->bind_param("sssss", $match_date, $home_team, $away_team, $competition, $status);
+// API-Daten abrufen
+$data = fetchFootballData($apiKey, $teamId);  // Der API-Key wird aus config.php geladen
 
-    if (!$stmt->execute()) {
-        echo "Fehler beim Speichern des Spiels von RapidAPI: " . $stmt->error;
+// SQL-Anweisung für das Einfügen der Daten vorbereiten
+$sql = "
+    INSERT INTO matches (match_id, date, opponent, score_home, score_away, winner, ball_possession, shots, shots_on_goal, yellow_cards, red_cards)
+    VALUES (:match_id, :date, :opponent, :score_home, :score_away, :winner, :ball_possession, :shots, :shots_on_goal, :yellow_cards, :red_cards)
+    ON DUPLICATE KEY UPDATE
+    score_home = VALUES(score_home),
+    score_away = VALUES(score_away),
+    winner = VALUES(winner),
+    ball_possession = VALUES(ball_possession),
+    shots = VALUES(shots),
+    shots_on_goal = VALUES(shots_on_goal),
+    yellow_cards = VALUES(yellow_cards),
+    red_cards = VALUES(red_cards)
+";
+$stmt = $pdo->prepare($sql);  // PDO-Instanz wird aus config.php geladen
+
+// Schleife zum Einfügen jedes Spiels in die Datenbank
+foreach ($data['matches'] as $match) {
+    $match_id = $match['id'];
+    $date = $match['utcDate'];
+    $opponent = ($match['homeTeam']['id'] == $teamId) ? $match['awayTeam']['name'] : $match['homeTeam']['name'];
+    $score_home = $match['score']['fullTime']['homeTeam'];
+    $score_away = $match['score']['fullTime']['awayTeam'];
+    
+    // Gewinner ermitteln
+    if ($score_home > $score_away) {
+        $winner = ($match['homeTeam']['id'] == $teamId) ? 'FC Barcelona' : $opponent;
+    } elseif ($score_home < $score_away) {
+        $winner = ($match['awayTeam']['id'] == $teamId) ? 'FC Barcelona' : $opponent;
+    } else {
+        $winner = 'draw';
     }
+
+    // Statistiken abrufen (wenn vorhanden, dies könnte je nach API anpassbar sein)
+    $stats = $match['statistics'] ?? [];
+    $ball_possession = $stats['possession'] ?? null;
+    $shots = $stats['shots'] ?? null;
+    $shots_on_goal = $stats['shotsOnGoal'] ?? null;
+    $yellow_cards = $stats['yellowCards'] ?? null;
+    $red_cards = $stats['redCards'] ?? null;
+
+    // Parameter an die SQL-Anweisung binden und ausführen
+    $stmt->execute([
+        ':match_id' => $match_id,
+        ':date' => $date,
+        ':opponent' => $opponent,
+        ':score_home' => $score_home,
+        ':score_away' => $score_away,
+        ':winner' => $winner,
+        ':ball_possession' => $ball_possession,
+        ':shots' => $shots,
+        ':shots_on_goal' => $shots_on_goal,
+        ':yellow_cards' => $yellow_cards,
+        ':red_cards' => $red_cards
+    ]);
 }
 
-// Verbindung schließen
-$stmt->close();
-$conn->close();
-
+// Ausgabe bei erfolgreichem Abschluss
 echo "ETL-Prozess erfolgreich abgeschlossen.";
 ?>
