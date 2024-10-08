@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spielvorhersagen | FC Barcelona</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Aktueller Stil -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-3d"></script>
     <script defer src="script.js"></script>
 </head>
 <body>
     <header>
         <div class="logo-container">
-            <img src="LOGO.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
+            <img src="fc_barcelona_logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
             <h1>Barcelona Spielvorhersagen</h1>
         </div>
         <nav>
@@ -27,7 +26,9 @@
     <main>
         <section id="vorhersagen">
             <h2>Spielvorhersagen in 3D</h2>
-            <canvas id="predictionsChart"></canvas>
+            <div class="chart-container">
+                <canvas id="predictionsChart"></canvas>
+            </div>
         </section>
     </main>
 

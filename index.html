@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hansi Flick Effect | FC Barcelona</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Beachte die korrekte Verlinkung zu deinem CSS -->
+    <link rel="stylesheet" href="styles.css"> <!-- Verlinkung zu deinem optimierten CSS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script defer src="script.js"></script> <!-- JavaScript für das Laden der Daten -->
+    <script defer src="script.js"></script>
 </head>
 <body>
+    <!-- Header mit Barcelona-Logo und Navigation -->
     <header>
         <div class="logo-container">
             <img src="fc_barcelona_logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
@@ -16,29 +17,35 @@
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html">Hauptseite</a></li>
+                <li><a href="index.html">Startseite</a></li>
                 <li><a href="vergleich.html">Vergleich mit Xavi</a></li>
                 <li><a href="spielplan.html">Spielplan</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- Hauptinhalt mit Informationen über Hansi Flick -->
     <main>
-        <!-- Section über Hansi Flick -->
+        <!-- Sektion: Über Hansi Flick -->
         <section id="hansi-flick">
-            <h2>Hansi Flick und sein Einfluss auf FC Barcelona</h2>
-            <p>Seit seiner Ankunft hat Hansi Flick den FC Barcelona transformiert. Mit seiner taktischen Raffinesse und seinem Fokus auf Pressing und schnelle Ballzirkulation hat er das Spiel des Teams dynamisiert.</p>
+            <h2>Der Hansi Flick Effekt</h2>
+            <div class="content">
+                <img src="hansi_flick.jpg" alt="Hansi Flick" class="hansi-flick-image" />
+                <p>Seit seiner Ankunft hat Hansi Flick den FC Barcelona transformiert. Mit seiner taktischen Raffinesse und seinem Fokus auf Pressing und schnelle Ballzirkulation hat er das Spiel des Teams dynamisiert.</p>
+            </div>
         </section>
 
-        <!-- Statistiken Sektion -->
+        <!-- Sektion: Teamstatistiken mit 3D-Diagrammen -->
         <section id="statistiken">
             <h2>Team-Statistiken unter Hansi Flick</h2>
-            <canvas id="teamStatsChart"></canvas> <!-- Diagramm für Statistiken -->
+            <div class="chart-container">
+                <canvas id="teamStatsChart"></canvas>
+            </div>
         </section>
 
-        <!-- Spielplan Sektion -->
+        <!-- Sektion: Nächste Spiele -->
         <section id="spielplan">
-            <h2>Nächste 15 Spiele | FC Barcelona Matchplan</h2>
+            <h2>Nächste 15 Spiele | FC Barcelona</h2>
             <div class="table-responsive">
                 <table id="calendar">
                     <thead>
@@ -51,7 +58,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Dynamische Inhalte, die durch JavaScript oder PHP geladen werden können -->
                         <tr>
                             <td>Okt 24, 2024</td>
                             <td>Getafe CF</td>
@@ -73,41 +79,14 @@
                             <td>Heim</td>
                             <td>21:00</td>
                         </tr>
-                        <tr>
-                            <td>Nov 5, 2024</td>
-                            <td>Deportivo Alavés</td>
-                            <td>La Liga</td>
-                            <td>Auswärts</td>
-                            <td>14:15</td>
-                        </tr>
-                        <tr>
-                            <td>Nov 10, 2024</td>
-                            <td>Sevilla</td>
-                            <td>La Liga</td>
-                            <td>Heim</td>
-                            <td>21:00</td>
-                        </tr>
-                        <tr>
-                            <td>Nov 14, 2024</td>
-                            <td>Bayern Munich</td>
-                            <td>Champions League</td>
-                            <td>Heim</td>
-                            <td>21:00</td>
-                        </tr>
-                        <tr>
-                            <td>Nov 18, 2024</td>
-                            <td>Real Madrid</td>
-                            <td>La Liga</td>
-                            <td>Auswärts</td>
-                            <td>TBA</td>
-                        </tr>
-                        <!-- Weitere Spiele bis zu 15 hinzufügen -->
+                        <!-- Weitere Spiele hier hinzufügen -->
                     </tbody>
                 </table>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2024 FC Barcelona | Hansi Flick Effect</p>
     </footer>
