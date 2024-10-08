@@ -2,12 +2,6 @@
 // Header setzen, um JSON auszugeben
 header('Content-Type: application/json');
 
-// 1. Datenbankverbindungsdetails
-$servername = "etl.benhan51.dbs.hostpoint.internal";
-$username = "benhan51_etl";
-$password = "MMP2024_fhgr_etl_zuerich";
-$dbname = "benhan51_etl";
-
 // Verbindung zur Datenbank herstellen
 $conn = new mysqli($servername, $username, $password, $dbname);
 
