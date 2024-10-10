@@ -1,6 +1,7 @@
 {
     "win_percentage": 65,
-    "goals": 45,
+    "score_home": 45,
+    "score_away": 30,
     "ball_possession": 60,
     "shots": 180,
     "shots_on_goal": 90,

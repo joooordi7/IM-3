@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hansi Flick Effect | FC Barcelona</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="fc_barcelona_logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
+            <h1>Hansi Flick Effect | FC Barcelona</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">Hauptseite</a></li>
+                <li><a href="spielplan.html">Spielplan</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="introduction">
+            <h2>Über die Webseite</h2>
+            <p>Diese Webseite vergleicht die Leistungen des FC Barcelona unter Hansi Flick und Xavi. Sie zeigt wichtige Statistiken wie Siegquote, Tore, Ballbesitz und Schüsse. Die Daten werden durch Diagramme anschaulich dargestellt, um die Spielweisen der beiden Trainer gegenüberzustellen. Fans und Analysten können so die Veränderungen im Team besser nachvollziehen. Zusätzlich gibt es eine Übersicht der kommenden Spiele, um den Spielplan im Blick zu behalten.</p>
+        </section>
+
+        <section id="vergleich">
+            <h2>Vergleich: Hansi Flick vs. Xavi</h2>
+            <div id="vergleich-container">
+                <h3>Siegquote (%)</h3>
+                <div class="chart-container">
+                    <canvas id="winPercentageChart"></canvas>
+                </div>
+                
+                <h3>Erzielte Tore</h3>
+                <div class="chart-container">
+                    <canvas id="goalsScoredChart"></canvas>
+                </div>
+
+                <h3>Taktik: Ballbesitz, Schüsse und Karten</h3>
+                <div class="chart-container">
+                    <canvas id="tacticsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <p id="error-message" style="color: red;"></p>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 FC Barcelona | Hansi Flick Effect</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('fetch_comparison_stats.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const flickData = data.flick;
+                    const xaviData = data.xavi;
+
+                    if (!flickData || !xaviData) {
+                        document.getElementById('error-message').innerText = 'Daten konnten nicht geladen werden.';
+                        return;
+                    }
+
+                    initCharts(flickData, xaviData);
+                })
+                .catch(error => {
+                    console.error('Fehler beim Abrufen der Vergleichsdaten:', error);
+                    document.getElementById('error-message').innerText = 'Fehler beim Laden der Vergleichsdaten. Bitte versuchen Sie es später erneut.';
+                });
+
+            fetch('fetch_matches.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Fehler beim Laden der Match-Daten: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const tableBody = document.querySelector('#calendar tbody');
+                    if (tableBody) {
+                        tableBody.innerHTML = '';
+
+                        data.matches.forEach(match => {
+                            const row = `
+                                <tr>
+                                    <td>${new Date(match.date).toLocaleDateString('de-DE')}</td>
+                                    <td>${match.opponent}</td>
+                                    <td>${match.competition}</td>
+                                    <td>${match.location}</td>
+                                    <td>${match.time}</td>
+                                </tr>
+                            `;
+                            tableBody.innerHTML += row;
+                        });
+                    } else {
+                        console.error('Tabelle für Match-Daten nicht gefunden.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Fehler beim Laden der Match-Daten:', error);
+                    const tableBody = document.querySelector('#calendar tbody');
+                    if (tableBody) {
+                        tableBody.innerHTML = '<tr><td colspan="5">Daten konnten nicht geladen werden.</td></tr>';
+                    }
+                });
+        });
+
+        function initCharts(flickData, xaviData) {
+            // Siegquote Diagramm
+            const winPercentageChartCanvas = document.getElementById('winPercentageChart').getContext('2d');
+            new Chart(winPercentageChartCanvas, {
+                type: 'pie',
+                data: {
+                    labels: ['Hansi Flick', 'Xavi'],
+                    datasets: [{
+                        label: 'Siegquote (%)',
+                        data: [
+                            (flickData.winner / flickData.games_played) * 100,
+                            xaviData.win_percentage
+                        ],
+                        backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Erzielte Tore Diagramm
+            const goalsScoredChartCanvas = document.getElementById('goalsScoredChart').getContext('2d');
+            new Chart(goalsScoredChartCanvas, {
+                type: 'bar',
+                data: {
+                    labels: ['Hansi Flick', 'Xavi'],
+                    datasets: [{
+                        label: 'Erzielte Tore',
+                        data: [
+                            flickData.score_home + flickData.score_away,
+                            xaviData.score_home + xaviData.score_away
+                        ],
+                        backgroundColor: ['rgba(153, 102, 255, 0.6)', 'rgba(255, 159, 64, 0.6)'],
+                        borderColor: ['rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // Taktik-Diagramm
+            const tacticsChartCanvas = document.getElementById('tacticsChart').getContext('2d');
+            const tacticsData = {
+                labels: ['Ballbesitz', 'Schüsse', 'Schüsse auf Tor', 'Gelbe Karten', 'Rote Karten'],
+                datasets: [{
+                    label: 'Hansi Flick',
+                    data: [
+                        flickData.ball_possession,
+                        flickData.shots,
+                        flickData.shots_on_goal,
+                        flickData.yellow_cards,
+                        flickData.red_cards
+                    ],
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Xavi',
+                    data: [
+                        xaviData.ball_possession,
+                        xaviData.shots,
+                        xaviData.shots_on_goal,
+                        xaviData.yellow_cards,
+                        xaviData.red_cards
+                    ],
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            new Chart(tacticsChartCanvas, {
+                type: 'radar',
+                data: tacticsData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
