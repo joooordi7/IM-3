@@ -6,7 +6,7 @@ header('Access-Control-Allow-Origin: *');
 require_once 'config.php';
 
 try {
-    // SQL-Abfrage zur Berechnung der Statistiken für Hansi Flick
+    // SQL query to calculate statistics for Hansi Flick
     $sql = "
         SELECT 
             SUM(score_home) AS flick_score_home,
@@ -18,16 +18,16 @@ try {
             SUM(shots_on_goal) AS flick_shots_on_goal,
             SUM(yellow_cards) AS flick_yellow_cards,
             SUM(red_cards) AS flick_red_cards
-        FROM matches
+        FROM fc_barcelona_match_stats
         WHERE date >= '2023-01-01'
     ";
 
-    // SQL-Abfrage ausführen
+    // Execute the SQL query
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $flickStats = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Manuelle Daten für Xavi
+    // Manuelle Daten für Xavi (du kannst diese Daten auch dynamisch berechnen, falls gewünscht)
     $xaviStats = [
         'score_home' => 45,
         'score_away' => 30,
@@ -39,12 +39,12 @@ try {
         'red_cards' => 0.1
     ];
 
-    // Zusammenstellen der Vergleichsdaten für die Ausgabe
+    // Assemble comparison data for output
     $comparisonData = [
         'flick' => [
             'score_home' => $flickStats['flick_score_home'] ?? 0,
             'score_away' => $flickStats['flick_score_away'] ?? 0,
-            'winner' => $flickStats['flick_wins'] ?? 0,
+            'wins' => $flickStats['flick_wins'] ?? 0,
             'games_played' => $flickStats['games_played'] ?? 1,
             'ball_possession' => $flickStats['flick_ball_possession'] ?? 0,
             'shots' => $flickStats['flick_shots'] ?? 0,
@@ -55,7 +55,7 @@ try {
         'xavi' => $xaviStats
     ];
 
-    // Vergleichsdaten als JSON ausgeben
+    // Output comparison data as JSON
     echo json_encode($comparisonData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
 } catch (PDOException $e) {

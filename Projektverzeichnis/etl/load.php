@@ -4,7 +4,7 @@ require_once 'config.php';
 
 try {
     // Bereitet die SQL-Abfrage vor, um alle Daten aus der Tabelle `matches` zu erhalten
-    $sql = "SELECT match_id, date, opponent, score_home, score_away, winner, ball_possession, shots, shots_on_goal, yellow_cards, red_cards FROM matches";
+    $sql = "SELECT match_id, date, opponent, score_home, score_away, winner, ball_possession, shots, shots_on_goal, yellow_cards, red_cards FROM fc_barcelona_match_stats";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     

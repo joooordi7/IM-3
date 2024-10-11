@@ -1,71 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
     const matches = [
         {
-            "date": "2024-10-14",
-            "opponent": "Real Madrid",
+            "date": "2024-10-20",
+            "opponent": "Sevilla",
             "competition": "La Liga",
             "location": "Heim",
             "time": "21:00"
         },
         {
-            "date": "2024-10-18",
-            "opponent": "Sevilla",
-            "competition": "La Liga",
-            "location": "Auswärts",
-            "time": "19:00"
-        },
-        {
-            "date": "2024-10-21",
+            "date": "2024-10-23",
             "opponent": "Bayern München",
             "competition": "Champions League",
             "location": "Heim",
-            "time": "20:45"
-        },
-        {
-            "date": "2024-10-25",
-            "opponent": "Villarreal",
-            "competition": "La Liga",
-            "location": "Heim",
-            "time": "18:30"
-        },
-        {
-            "date": "2024-10-30",
-            "opponent": "Getafe",
-            "competition": "La Liga",
-            "location": "Auswärts",
-            "time": "17:00"
-        },
-        {
-            "date": "2024-11-03",
-            "opponent": "Atletico Madrid",
-            "competition": "La Liga",
-            "location": "Heim",
             "time": "21:00"
         },
         {
-            "date": "2024-11-07",
-            "opponent": "Manchester City",
-            "competition": "Champions League",
+            "date": "2024-10-27",
+            "opponent": "Real Madrid",
+            "competition": "La Liga",
             "location": "Auswärts",
-            "time": "20:45"
+            "time": "21:00"
         },
         {
-            "date": "2024-11-11",
-            "opponent": "Real Sociedad",
+            "date": "2024-11-03",
+            "opponent": "Espanyol",
             "competition": "La Liga",
             "location": "Heim",
-            "time": "19:00"
+            "time": "16:15"
         },
         {
-            "date": "2024-11-15",
-            "opponent": "Real Betis",
+            "date": "2024-11-06",
+            "opponent": "Roter Stern Belgrad",
+            "competition": "Champions League",
+            "location": "Auswärts",
+            "time": "21:00"
+        },
+        {
+            "date": "2024-11-10",
+            "opponent": "Real Sociedad",
             "competition": "La Liga",
             "location": "Auswärts",
-            "time": "18:30"
+            "time": "21:00"
         },
         {
-            "date": "2024-11-19",
-            "opponent": "PSG",
+            "date": "2024-11-24",
+            "opponent": "Celta Vigo",
+            "competition": "La Liga",
+            "location": "Auswärts",
+            "time": "TBA"
+        },
+        {
+            "date": "2024-11-26",
+            "opponent": "Stade Brest",
             "competition": "Champions League",
             "location": "Heim",
             "time": "21:00"
