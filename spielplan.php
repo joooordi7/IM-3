@@ -21,7 +21,7 @@
 
     <main>
         <section id="spielplan">
-            <h2>Spielplan FC Barcelona 2024/2025</h2>
+            <h2>Unsere kommenden Spiele</h2>
             <div class="table-responsive">
                 <table id="calendar">
                     <thead>
@@ -34,15 +34,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Daten werden hier dynamisch eingefügt -->
+                        <!-- Spielplan-Daten werden hier dynamisch eingefügt -->
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <footer>
-        <p>&copy; 2024 FC Barcelona | Spielplan</p>
-    </footer>
+        <!-- Neuer Abschnitt für die Spielerliste -->
+        <section id="spielerliste">
+            <h2>Kader 2024/2025</h2>
+            <div class="table-responsive">
+            <table id="players">
+    <thead>
+        <tr>
+            <th>Spieler</th>
+            <th>Position</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Player rows will be inserted here dynamically by JavaScript -->
+    </tbody>
+</table>
+
+            </div>
+        </section>
     </main>
+
 </body>
+
+<footer>
+    <p>&copy; 2024 FC Barcelona | Visça Barça</p>
+</footer>
+
 </html>

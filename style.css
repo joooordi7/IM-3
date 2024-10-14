@@ -7,15 +7,8 @@
     --gradient: linear-gradient(135deg, #004D98, #A50044);
 }
 
-.fugaz-one-regular {
-    font-family: "Fugaz One", sans-serif;
-    font-weight: 400;
-    font-style: bold;
-  }
-  
-
 body {
-    font-family: 'Fugaz one', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 0;
     background-color: var(--barca-blue); /* Hintergrundfarbe Blau */
@@ -30,13 +23,12 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 3px 30px;
+    padding: 2px 30px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-bottom: 2px solid var(--barca-yellow); 
     position: relative;
     z-index: 1;
 }
-
 
 .logo-container img {
     height: 120px; /* Größeres Logo */
@@ -68,7 +60,6 @@ nav ul li a:hover {
 h1, h2, h3, h4, h5, h6 {
     color: var(--barca-yellow);
     text-align: center; /* H-Titel zentrieren */
-    font-family: "Fugaz one";
 }
 
 /* Main Content */
@@ -76,58 +67,70 @@ main {
     padding: 0 40px; /* Padding links und rechts hinzufügen */
 }
 
-/* Tabelle für Spielplan */
-.table-responsive {
-    overflow-x: auto;
-    margin: 20px 0;
-}
-
-#calendar {
+/* General table styling */
+table {
     width: 100%;
     border-collapse: collapse;
     font-size: 1.2em;
     min-width: 400px;
-    padding: 0 40px; /* Padding links und rechts bei der Tabelle */
+    border: 1px solid #ddd; /* Add border to the whole table */
+    margin-bottom: 40px; /* Add more space below the table */
 }
 
-#calendar thead tr {
+/* Header row with smaller text */
+thead tr {
     background-color: var(--barca-blue);
     color: var(--barca-yellow);
-    text-align: left;
     font-weight: bold;
+    font-size: 1em; /* Make header text smaller */
+    border-bottom: 3px solid var(--barca-yellow); /* Thicker bottom border for header */
 }
 
-#calendar th, #calendar td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
+th {
+    padding: 10px 15px; /* Adjust padding to fit smaller text */
+    text-align: left;
+    vertical-align: middle;
+    border: 1px solid #ddd; /* Add border to the table headers */
 }
 
-#calendar tbody tr {
-    border-bottom: 1px solid #ddd;
+/* Body rows */
+tbody tr:nth-of-type(odd) {
+    background-color: var(--barca-blue); /* Blue background for odd rows */
+    color: var(--barca-white); /* White text for contrast */
 }
 
-#calendar tbody tr:nth-of-type(even) {
-    background-color: var(--barca-granate);
+tbody tr:nth-of-type(even) {
+    background-color: var(--barca-granate); /* Granate background for even rows */
     color: var(--barca-white);
 }
 
-#calendar tbody tr:hover {
-    background-color: var(--barca-yellow);
+/* Borders for rows and cells */
+tbody tr {
+    border-bottom: 1px solid #ddd; /* Add border between rows */
+}
+
+td {
+    padding: 12px 20px; /* Consistent padding for better readability */
+    text-align: left; /* Align text to the left */
+    vertical-align: middle; /* Align data vertically to the middle */
+    border-right: 1px solid #ddd; /* Add border between columns */
+}
+
+td:last-child, th:last-child {
+    border-right: none; /* Remove border for the last column */
+}
+
+/* Hover effect for all rows */
+tbody tr:hover {
+    background-color: var(--barca-yellow); /* Highlight row with yellow */
     color: var(--barca-blue);
 }
 
-/* Footer */
-footer {
-    background-color: var(--barca-blue);
-    color: var(--barca-yellow);
-    text-align: center;
-    padding: 10px 20px; /* Weniger Padding für eine kompaktere Größe */
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-    font-size: 1rem; /* Standardgröße der Schrift */
+/* Add more space between tables */
+.table-spacing {
+    margin-top: 50px; /* Add space before the second table */
 }
+
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -149,7 +152,7 @@ footer {
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     h3 {
@@ -160,7 +163,7 @@ footer {
         font-size: 1rem;
     }
 
-    #calendar {
+    table {
         font-size: 1em;
     }
 }
@@ -178,4 +181,17 @@ canvas {
 
 canvas:hover {
     transform: scale(1.05); /* Vergrößert die Diagramme leicht beim Hover */
+}
+
+/* Footer styling */
+footer {
+    background-color: var(--barca-blue); /* Barca blue background */
+    color: var(--barca-yellow); /* Yellow text */
+    text-align: center; /* Center the text horizontally */
+    padding: 20px; /* Add padding for spacing */
+    position: relative;
+    bottom: 0;
+    width: 100%; /* Full width */
+    box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
+    font-size: 1.2em; /* Adjust font size for readability */
 }

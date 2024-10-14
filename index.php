@@ -15,30 +15,30 @@
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="spielplan.php">Spielplan 2024/2025</a></li>
+                <li><a href="spielplan.php">Spielplan und Kader</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <h1>DER HANSI FLICK EFFEKT</h1>
+        <h1>Der Hansi Flick Effekt</h1>
         <section id="introduction">
             <p>Diese Webseite vergleicht die Leistungen des FC Barcelona unter Hansi Flick und Xavi anhand von wichtigen Statistiken wie Siegquote, Tore, Ballbesitz und Schüsse. Anhand von Diagrammen werden die unterschiedlichen Spielweisen der beiden Trainer veranschaulicht. Während Hansi Flick für schnelles Umschaltspiel und Effizienz steht, setzt Xavi auf den klassischen Ballbesitzfußball des FC Barcelona. Die Statistiken zu offensiven und defensiven Aspekten sowie Disziplinarfaktoren wie gelbe und rote Karten geben Einblick in die jeweilige Teamdynamik. </p>
         </section>
 
         <section id="vergleich">
             <div id="vergleich-container">
-                <h3>Siegquote (%)</h3>
+                <h2>Siegquote (%)</h2   >
                 <div class="chart-container">
                     <canvas id="winPercentageChart"></canvas>
                 </div>
                 
-                <h3>Erzielte Tore</h3>
+                <h2>Erzielte Tore</h2>
                 <div class="chart-container">
                     <canvas id="goalsScoredChart"></canvas>
                 </div>
 
-                <h3>Taktik: Ballbesitz, Schüsse und Karten</h3>
+                <h2>Taktik: Ballbesitz, Schüsse und Karten</h2>
                 <div class="chart-container">
                     <canvas id="tacticsChart"></canvas>
                 </div>
@@ -188,8 +188,11 @@
             });
         }
     </script>
-        <footer>
-        <p>&copy; 2024 FC Barcelona | Hansi Flick Effekt</p>
-    </footer>
+
 </body>
+
+<footer>
+    <p>&copy; 2024 FC Barcelona | Spielplan und Statistiken</p>
+</footer>
+
 </html>
