@@ -12,11 +12,11 @@ try {
     $stmt->execute();
 
     // Daten als assoziatives Array abrufen
-    $matches = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $fc_barcelona_match_stats = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // JSON-Antwort senden, um sie im Frontend anzuzeigen
     header('Content-Type: application/json');
-    echo json_encode($matches);
+    echo json_encode($fc_barcelona_match_stats);
 
 } catch (PDOException $e) {
     // Fehlerbehandlung, wenn die Abfrage fehlschlägt

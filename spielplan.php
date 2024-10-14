@@ -10,7 +10,7 @@
 <body>
     <header>
         <div class="logo-container">
-            <img src="fc_barcelona_logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
+        <img src="images/fc_barcelona_logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
         </div>
         <nav>
             <ul class="nav-links">

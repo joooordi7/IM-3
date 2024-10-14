@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Daten dynamisch von der PHP-Datei abrufen (Vergleichsdaten Hansi Flick und Xavi)
-    fetch('etl/fetch_comparison_stats.php')
+    // Fetch Hansi Flick's data from the PHP file
+    fetch('fetch_comparison_stats.php')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -8,13 +8,25 @@ document.addEventListener('DOMContentLoaded', () => {
             return response.json();
         })
         .then(data => {
-            // Initialisiere Diagramme mit den abgerufenen Daten
+            // Fetch Hansi Flick's data
             const flickData = data.flick;
-            const xaviData = data.xavi;
-            // Ruft die initCharts-Funktion auf, die bereits in index.html definiert ist
+
+            // Static data for Xavi
+            const xaviData = {
+                'score_home': 45,
+                'score_away': 30,
+                'win_percentage': 65,
+                'ball_possession': 65,
+                'shots': 16,
+                'shots_on_goal': 7,
+                'yellow_cards': 1.5,
+                'red_cards': 0.1
+            };
+
+            // Call the function to initialize charts with both data sets
             initCharts(flickData, xaviData);
         })
         .catch(error => {
-            console.error('Fehler beim Abrufen der Vergleichsdaten:', error);
+            console.error('Error fetching the comparison data:', error);
         });
 });

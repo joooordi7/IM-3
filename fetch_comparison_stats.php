@@ -6,18 +6,18 @@ header('Access-Control-Allow-Origin: *');
 require_once 'config.php';
 
 try {
-    // SQL query to calculate statistics for Hansi Flick
+    // SQL query to fetch the current statistics for Hansi Flick
     $sql = "
         SELECT 
-            SUM(score_home) AS flick_score_home,
-            SUM(score_away) AS flick_score_away,
+            SUM(COALESCE(score_home, 0)) AS flick_score_home,
+            SUM(COALESCE(score_away, 0)) AS flick_score_away,
             SUM(CASE WHEN winner = 'FC Barcelona' THEN 1 ELSE 0 END) AS flick_wins,
             COUNT(*) AS games_played,
-            AVG(ball_possession) AS flick_ball_possession,
-            SUM(shots) AS flick_shots,
-            SUM(shots_on_goal) AS flick_shots_on_goal,
-            SUM(yellow_cards) AS flick_yellow_cards,
-            SUM(red_cards) AS flick_red_cards
+            AVG(COALESCE(ball_possession, 0)) AS flick_ball_possession,
+            SUM(COALESCE(shots, 0)) AS flick_shots,
+            SUM(COALESCE(shots_on_goal, 0)) AS flick_shots_on_goal,
+            SUM(COALESCE(yellow_cards, 0)) AS flick_yellow_cards,
+            SUM(COALESCE(red_cards, 0)) AS flick_red_cards
         FROM fc_barcelona_match_stats
         WHERE date >= '2023-01-01'
     ";
@@ -27,7 +27,7 @@ try {
     $stmt->execute();
     $flickStats = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Manuelle Daten für Xavi (du kannst diese Daten auch dynamisch berechnen, falls gewünscht)
+    // Assemble comparison data (Xavi data can still be hardcoded or stored in the database)
     $xaviStats = [
         'score_home' => 45,
         'score_away' => 30,
@@ -39,19 +39,8 @@ try {
         'red_cards' => 0.1
     ];
 
-    // Assemble comparison data for output
     $comparisonData = [
-        'flick' => [
-            'score_home' => $flickStats['flick_score_home'] ?? 0,
-            'score_away' => $flickStats['flick_score_away'] ?? 0,
-            'wins' => $flickStats['flick_wins'] ?? 0,
-            'games_played' => $flickStats['games_played'] ?? 1,
-            'ball_possession' => $flickStats['flick_ball_possession'] ?? 0,
-            'shots' => $flickStats['flick_shots'] ?? 0,
-            'shots_on_goal' => $flickStats['flick_shots_on_goal'] ?? 0,
-            'yellow_cards' => $flickStats['flick_yellow_cards'] ?? 0,
-            'red_cards' => $flickStats['flick_red_cards'] ?? 0
-        ],
+        'flick' => $flickStats,
         'xavi' => $xaviStats
     ];
 
@@ -61,8 +50,9 @@ try {
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode(['error' => 'Datenbankfehler: ' . $e->getMessage()]);
-} catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Ein Fehler ist aufgetreten: ' . $e->getMessage()]);
 }
 ?>
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
