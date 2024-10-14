@@ -6,7 +6,7 @@
     <title>Hansi Flick Effect | FC Barcelona</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script defer src="script.js"></script>
+    <script defer src="script.js"></script> <!-- Spielplan-Logik wurde entfernt -->
 </head>
 <body>
     <header>
@@ -25,7 +25,7 @@
     <main>
         <section id="introduction">
             <h2>Über die Webseite</h2>
-            <p>Diese Webseite vergleicht die Leistungen des FC Barcelona unter Hansi Flick und Xavi. Sie zeigt wichtige Statistiken wie Siegquote, Tore, Ballbesitz und Schüsse. Die Daten werden durch Diagramme anschaulich dargestellt, um die Spielweisen der beiden Trainer gegenüberzustellen. Fans und Analysten können so die Veränderungen im Team besser nachvollziehen. Zusätzlich gibt es eine Übersicht der kommenden Spiele, um den Spielplan im Blick zu behalten.</p>
+            <p>Diese Webseite vergleicht die Leistungen des FC Barcelona unter Hansi Flick und Xavi. Sie zeigt wichtige Statistiken wie Siegquote, Tore, Ballbesitz und Schüsse. Die Daten werden durch Diagramme anschaulich dargestellt, um die Spielweisen der beiden Trainer gegenüberzustellen. Fans und Analysten können so die Veränderungen im Team besser nachvollziehen.</p>
         </section>
 
         <section id="vergleich">
@@ -52,11 +52,12 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 FC Barcelona | Hansi Flick Effect</p>
+        <p>&copy; 2024 FC Barcelona | Hansi Flick Effekt</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Abrufen der Vergleichsdaten von Hansi Flick und Xavi
             fetch('fetch_comparison_stats.php')
                 .then(response => {
                     if (!response.ok) {
@@ -80,41 +81,6 @@
                     document.getElementById('error-message').innerText = 'Fehler beim Laden der Vergleichsdaten. Bitte versuchen Sie es später erneut.';
                 });
 
-            fetch('fetch_matches.php')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Fehler beim Laden der Match-Daten: ' + response.statusText);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const tableBody = document.querySelector('#calendar tbody');
-                    if (tableBody) {
-                        tableBody.innerHTML = '';
-
-                        data.matches.forEach(match => {
-                            const row = `
-                                <tr>
-                                    <td>${new Date(match.date).toLocaleDateString('de-DE')}</td>
-                                    <td>${match.opponent}</td>
-                                    <td>${match.competition}</td>
-                                    <td>${match.location}</td>
-                                    <td>${match.time}</td>
-                                </tr>
-                            `;
-                            tableBody.innerHTML += row;
-                        });
-                    } else {
-                        console.error('Tabelle für Match-Daten nicht gefunden.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Fehler beim Laden der Match-Daten:', error);
-                    const tableBody = document.querySelector('#calendar tbody');
-                    if (tableBody) {
-                        tableBody.innerHTML = '<tr><td colspan="5">Daten konnten nicht geladen werden.</td></tr>';
-                    }
-                });
         });
 
         function initCharts(flickData, xaviData) {
@@ -127,7 +93,7 @@
                     datasets: [{
                         label: 'Siegquote (%)',
                         data: [
-                            (flickData.winner / flickData.games_played) * 100,
+                            (flickData.wins / flickData.games_played) * 100,
                             xaviData.win_percentage
                         ],
                         backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
