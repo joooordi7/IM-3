@@ -3,33 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hansi Flick Effect | FC Barcelona</title>
+    <title>Hansi Flick Effekt | FC Barcelona</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script defer src="script.js"></script> <!-- Spielplan-Logik wurde entfernt -->
+    <script defer src="script.js"></script>
 </head>
 <body>
     <header>
         <div class="logo-container">
             <img src="fc_barcelona_logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
-            <h1>Hansi Flick Effekt | FC Barcelona</h1>
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html">Hauptseite</a></li>
-                <li><a href="spielplan.html">Spielplan</a></li>
+                <li><a href="spielplan.php">Spielplan 2024/2025</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
+        <h1>DER HANSI FLICK EFFEKT</h1>
         <section id="introduction">
-            <h2>Über die Webseite</h2>
-            <p>Diese Webseite vergleicht die Leistungen des FC Barcelona unter Hansi Flick und Xavi. Sie zeigt wichtige Statistiken wie Siegquote, Tore, Ballbesitz und Schüsse. Die Daten werden durch Diagramme anschaulich dargestellt, um die Spielweisen der beiden Trainer gegenüberzustellen. Fans und Analysten können so die Veränderungen im Team besser nachvollziehen.</p>
+            <p>Diese Webseite vergleicht die Leistungen des FC Barcelona unter Hansi Flick und Xavi anhand von wichtigen Statistiken wie Siegquote, Tore, Ballbesitz und Schüsse. Anhand von Diagrammen werden die unterschiedlichen Spielweisen der beiden Trainer veranschaulicht. Während Hansi Flick für schnelles Umschaltspiel und Effizienz steht, setzt Xavi auf den klassischen Ballbesitzfußball des FC Barcelona. Die Statistiken zu offensiven und defensiven Aspekten sowie Disziplinarfaktoren wie gelbe und rote Karten geben Einblick in die jeweilige Teamdynamik. </p>
         </section>
 
         <section id="vergleich">
-            <h2>Vergleich: Hansi Flick vs. Xavi</h2>
             <div id="vergleich-container">
                 <h3>Siegquote (%)</h3>
                 <div class="chart-container">
@@ -50,10 +47,6 @@
 
         <p id="error-message" style="color: red;"></p>
     </main>
-
-    <footer>
-        <p>&copy; 2024 FC Barcelona | Hansi Flick Effekt</p>
-    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -80,7 +73,6 @@
                     console.error('Fehler beim Abrufen der Vergleichsdaten:', error);
                     document.getElementById('error-message').innerText = 'Fehler beim Laden der Vergleichsdaten. Bitte versuchen Sie es später erneut.';
                 });
-
         });
 
         function initCharts(flickData, xaviData) {
@@ -196,5 +188,8 @@
             });
         }
     </script>
+        <footer>
+        <p>&copy; 2024 FC Barcelona | Hansi Flick Effekt</p>
+    </footer>
 </body>
 </html>

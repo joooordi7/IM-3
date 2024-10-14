@@ -7,12 +7,19 @@
     --gradient: linear-gradient(135deg, #004D98, #A50044);
 }
 
+.fugaz-one-regular {
+    font-family: "Fugaz One", sans-serif;
+    font-weight: 400;
+    font-style: bold;
+  }
+  
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Fugaz one', sans-serif;
     margin: 0;
     padding: 0;
-    background: var(--barca-white);
-    color: var(--barca-blue);
+    background-color: var(--barca-blue); /* Hintergrundfarbe Blau */
+    color: var(--barca-white); /* Standardfarbe für Text */
     overflow-x: hidden;
 }
 
@@ -21,45 +28,35 @@ header {
     background-color: var(--barca-blue);
     color: var(--barca-yellow);
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 3px 30px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid var(--barca-yellow); 
+    position: relative;
+    z-index: 1;
 }
+
 
 .logo-container img {
-    height: 60px;
+    height: 120px; /* Größeres Logo */
     cursor: pointer;
     transition: transform 0.3s ease;
-}
-
-h1 {
-    font-family: 'Montserrat', sans-serif;
-    text-transform: uppercase;
-    font-size: 1.5rem;
-    color: var(--barca-yellow);
-    flex: 1;
-    text-align: center;
 }
 
 nav ul {
     list-style-type: none;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 15px;
+    gap: 30px;
     padding: 0;
-}
-
-nav ul li {
-    margin: 5px 10px;
+    margin: 0;
 }
 
 nav ul li a {
     color: var(--barca-yellow);
     text-decoration: none;
     font-weight: bold;
+    font-size: 1.5rem;
     transition: color 0.3s ease;
 }
 
@@ -67,51 +64,19 @@ nav ul li a:hover {
     color: var(--barca-white);
 }
 
+/* Mittig ausgerichtete H-Titel */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--barca-yellow);
+    text-align: center; /* H-Titel zentrieren */
+    font-family: "Fugaz one";
+}
+
 /* Main Content */
 main {
-    padding: 20px;
-    background: var(--gradient);
-    color: var(--barca-white);
-    animation: backgroundShift 10s infinite alternate;
+    padding: 0 40px; /* Padding links und rechts hinzufügen */
 }
 
-@keyframes backgroundShift {
-    from {
-        background-position: 0% 0%;
-    }
-    to {
-        background-position: 100% 100%;
-    }
-}
-
-h2 {
-    font-family: 'Montserrat', sans-serif;
-    text-transform: uppercase;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: var(--barca-yellow);
-    border-bottom: 2px solid var(--barca-yellow);
-    padding-bottom: 10px;
-    text-align: center;
-}
-
-/* Canvas für Diagramme */
-canvas {
-    width: 100%;
-    max-width: 100%;
-    margin: 40px 0;
-    height: 400px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-canvas:hover {
-    transform: scale(1.05);
-}
-
-/* Responsive Table */
+/* Tabelle für Spielplan */
 .table-responsive {
     overflow-x: auto;
     margin: 20px 0;
@@ -122,6 +87,7 @@ canvas:hover {
     border-collapse: collapse;
     font-size: 1.2em;
     min-width: 400px;
+    padding: 0 40px; /* Padding links und rechts bei der Tabelle */
 }
 
 #calendar thead tr {
@@ -155,17 +121,18 @@ footer {
     background-color: var(--barca-blue);
     color: var(--barca-yellow);
     text-align: center;
-    padding: 20px;
+    padding: 10px 20px; /* Weniger Padding für eine kompaktere Größe */
     position: relative;
     bottom: 0;
     width: 100%;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem; /* Standardgröße der Schrift */
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 1.2rem;
+    .logo-container img {
+        height: 70px;
     }
 
     nav ul {
@@ -184,5 +151,31 @@ footer {
     h2 {
         font-size: 1.5rem;
     }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    #calendar {
+        font-size: 1em;
+    }
 }
 
+/* Canvas für Diagramme */
+canvas {
+    width: 100%;
+    max-width: 100%;
+    height: 400px; /* Standardhöhe für Diagramme */
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+canvas:hover {
+    transform: scale(1.05); /* Vergrößert die Diagramme leicht beim Hover */
+}

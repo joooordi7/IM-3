@@ -11,19 +11,17 @@
     <header>
         <div class="logo-container">
             <img src="fc_barcelona_logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
-            <h1>FC Barcelona | Spielplan</h1>
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html">Hauptseite</a></li>
-                <li><a href="spielplan.html">Spielplan</a></li>
+                <li><a href="index.php">Der Hansi Flick Effekt</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section id="spielplan">
-            <h2>Nächste 10 Spiele | FC Barcelona</h2>
+            <h2>Spielplan FC Barcelona 2024/2025</h2>
             <div class="table-responsive">
                 <table id="calendar">
                     <thead>
@@ -41,10 +39,10 @@
                 </table>
             </div>
         </section>
-    </main>
 
-    <footer>
+        <footer>
         <p>&copy; 2024 FC Barcelona | Spielplan</p>
     </footer>
+    </main>
 </body>
 </html>
