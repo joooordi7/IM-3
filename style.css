@@ -190,9 +190,6 @@ tbody tr:hover {
 
 /* Canvas für Diagramme */
 canvas {
-    width: 100%;
-    max-width: 100%;
-    height: 400px; /* Standardhöhe für Diagramme */
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
@@ -201,6 +198,19 @@ canvas {
 
 canvas:hover {
     transform: scale(1.05); /* Vergrößert die Diagramme leicht beim Hover */
+}
+
+/* Spezifische Anpassung für die Chart-Container */
+.chart-container {
+    display: flex;
+    justify-content: space-around; /* Stellt sicher, dass die Diagramme nebeneinander stehen */
+    align-items: center;
+    margin-top: 20px; /* Fügt etwas Platz oberhalb der Diagramme hinzu */
+}
+
+.chart-container canvas {
+    width: 200px;  /* Setzt die Breite des Diagramms auf 200px */
+    height: 200px; /* Setzt die Höhe des Diagramms auf 200px */
 }
 
 /* Footer styling */
@@ -213,5 +223,32 @@ footer {
     bottom: 0;
     width: 100%; /* Full width */
     box-shadow: 0 -4px 4px rgba(0, 0, 0, 0.1); /* Optional shadow effect */
-    font-size: 1.2em; /* Adjust font size for readability */
+    font-size: 1.1em; /* Adjust font size for readability */
+}
+
+/* Filter für Tabelle */
+#filter-container {
+    margin: 10px 0 20px; /* Abstand oberhalb und unterhalb des Filters */
+    text-align: center;   /* Zentriert den Filter */
+}
+
+#filter-container label {
+    color: var(--barca-yellow);  /* Gelbe Schrift für das Label */
+    font-weight: bold;           /* Fettgedruckte Schrift */
+}
+
+#position-filter {
+    padding: 8px;
+    font-size: 1em;
+    font-style: normal;
+    margin-left: 10px; /* Abstand zwischen Label und Dropdown */
+    background-color: var(--barca-granate); /* Barca Granate als Hintergrundfarbe */
+    color: black; /* Schwarze Schrift im Dropdown */
+    font-weight: 600;
+    border-radius: 5px;
+}
+
+#position-filter option {
+    color: black; /* Schwarze Schrift für die Optionen im Dropdown */
+    background-color: white; /* Weißer Hintergrund für die Dropdown-Optionen */
 }

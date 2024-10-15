@@ -11,23 +11,26 @@ try {
     $pdo = new PDO($dsn, $username, $password, $options);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // SQL query to extract relevant match statistics from the table
+    // SQL query to sum the ball_possession values
     $sql = "
-        SELECT *
+        SELECT SUM(ball_possession) AS total_ball_possession
         FROM fc_barcelona_match_stats
-        WHERE winner IS NOT NULL;
+        WHERE ball_possession IS NOT NULL;
     ";
 
     // Prepare and execute the SQL statement
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
 
-    // // Fetch all the results as an associative array
-    $fc_barcelona_match_stats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Fetch the result as an associative array
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // // Output the match data in JSON format
+    // Manually calculate the average by dividing the total by 9 (since you specified there are 9 matches)
+    $average_ball_possession = $result['total_ball_possession'] / 9;
+
+    // Output the average ball possession in JSON format
     header('Content-Type: application/json');
-    echo json_encode($fc_barcelona_match_stats, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    echo json_encode(['avg_ball_possession' => $average_ball_possession], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 } catch (PDOException $e) {
     // Handle any database errors

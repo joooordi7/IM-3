@@ -11,23 +11,23 @@ try {
     $pdo = new PDO($dsn, $username, $password, $options);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // SQL query to extract relevant match statistics from the table
+    // SQL query to count how many times FC BARCELONA is the winner
     $sql = "
-        SELECT *
+        SELECT COUNT(*) AS total_wins
         FROM fc_barcelona_match_stats
-        WHERE winner IS NOT NULL;
+        WHERE winner = 'FC BARCELONA';
     ";
 
     // Prepare and execute the SQL statement
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
 
-    // // Fetch all the results as an associative array
-    $fc_barcelona_match_stats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Fetch the result as an associative array
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // // Output the match data in JSON format
+    // Output the total number of wins in JSON format
     header('Content-Type: application/json');
-    echo json_encode($fc_barcelona_match_stats, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    echo json_encode(['total_wins' => $result['total_wins']], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 
 } catch (PDOException $e) {
     // Handle any database errors

@@ -43,27 +43,44 @@
         <!-- Neuer Abschnitt für die Spielerliste -->
         <section id="spielerliste">
             <h2>Kader 2024/2025</h2>
+            
+            <!-- Filter-Dropdown für die Positionen -->
+            <div id="filter-container">
+                <label for="position-filter">Filter nach Position:</label>
+                <select id="position-filter">
+                    <option value="all">Alle Positionen</option>
+                    <option value="Torwart">Torwart</option>
+                    <option value="Innenverteidiger">Innenverteidiger</option>
+                    <option value="Linker Verteidiger">Linker Verteidiger</option>
+                    <option value="Rechter Verteidiger">Rechter Verteidiger</option>
+                    <option value="Defensives Mittelfeld">Defensives Mittelfeld</option>
+                    <option value="Zentrales Mittelfeld">Zentrales Mittelfeld</option>
+                    <option value="Offensives Mittelfeld">Offensives Mittelfeld</option>
+                    <option value="Linksaussen">Linksaussen</option>
+                    <option value="Rechtsaussen">Rechtsaussen</option>
+                    <option value="Mittelstürmer">Mittelstürmer</option>
+                </select>
+            </div>
+            
             <div class="table-responsive">
-            <table id="players">
-    <thead>
-        <tr>
-            <th>Spieler</th>
-            <th>Position</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Player rows will be inserted here dynamically by JavaScript -->
-    </tbody>
-</table>
-
+                <table id="players">
+                    <thead>
+                        <tr>
+                            <th>Spieler</th>
+                            <th>Position</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Player rows will be inserted here dynamically by JavaScript -->
+                    </tbody>
+                </table>
             </div>
         </section>
     </main>
 
+    <footer>
+        <p>FC Barcelona Saison 2024/2025 | Visça Barça</p>
+    </footer>
+
 </body>
-
-<footer>
-    <p>&copy; 2024 FC Barcelona | Visça Barça</p>
-</footer>
-
 </html>

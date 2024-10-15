@@ -6,8 +6,7 @@
     <title>Hansi Flick Effekt | FC Barcelona</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script defer src="script.js"></script> <!-- Fetching data handled in script.js -->
-    <script defer src="charts.js"></script> <!-- Chart rendering logic moved to charts.js -->
+    <script src="script.js" defer></script> 
 </head>
 <body>
     <header>
@@ -24,25 +23,31 @@
     <main>
         <h1>Der Hansi Flick Effekt</h1>
         <section id="introduction">
-            <p>Diese Webseite vergleicht die Leistungen des FC Barcelona unter Hansi Flick und Xavi anhand von wichtigen Statistiken wie Siegquote, Tore, Ballbesitz und Schüsse. Anhand von Diagrammen werden die unterschiedlichen Spielweisen der beiden Trainer veranschaulicht. Während Hansi Flick für schnelles Umschaltspiel und Effizienz steht, setzt Xavi auf den klassischen Ballbesitzfussball des FC Barcelona. Die Statistiken zu offensiven und defensiven Aspekten sowie Disziplinarfaktoren wie gelbe und rote Karten geben Einblick in die jeweilige Teamdynamik.</p>
+            <p>Diese Webseite vergleicht die Leistungen des FC Barcelona unter Hansi Flick und Xavi anhand von wichtigen Statistiken wie Siegquote, Tore, Ballbesitz und Schüsse.</p>
         </section>
 
         <section id="vergleich">
             <div id="vergleich-container">
-                <h2>Siegquote (%)</h2>
-                <div class="chart-container">
-                    <canvas id="winPercentageChart"></canvas>
-                </div>
-                
-                <h2>Erzielte Tore</h2>
-                <div class="chart-container">
-                    <canvas id="goalsScoredChart"></canvas>
-                </div>
+                <h2>Wichtige Statistiken</h2>
+                <p id="ball-possession">Lade durchschnittlichen Ballbesitz...</p>
+                <p id="total-wins">Lade Gesamtsiege...</p>
+                <p id="total-goals">Lade erzielte Tore...</p>
+                <p id="total-shots">Lade Schüsse...</p>
+                <p id="yellow-cards">Lade gelbe Karten...</p>
 
-                <h2>Taktik: Ballbesitz, Schüsse und Karten</h2>
+                <!-- Diagramme -->
+                <h2>Siegvergleich (Liniendiagramm)</h2>
+                <canvas id="winsChart"></canvas>
+
+                <h2>Schüsse vs. Tore (Balkendiagramm)</h2>
+                <canvas id="shotsGoalsChart"></canvas>
+
+                <h2>Ballbesitz und Gelbe Karten (Kreisdiagramme)</h2>
                 <div class="chart-container">
-                    <canvas id="tacticsChart"></canvas>
+                    <canvas id="possessionChart"></canvas>
+                    <canvas id="yellowCardsChart"></canvas>
                 </div>
+            
             </div>
         </section>
 
@@ -50,7 +55,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2024 FC Barcelona | Spielplan und Statistiken</p>
+        <p>FC Barcelona Saison 2024/2025 | Visça Barça</p>
     </footer>
 </body>
 </html>
