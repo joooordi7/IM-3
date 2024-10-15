@@ -45,12 +45,13 @@ try {
     // Output comparison data as JSON (only Flick's stats)
     echo json_encode($comparisonData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
-} catch (PDOException $e) {
-    // Return a 500 error and the error message if the query fails
-    http_response_code(500);
-    echo json_encode(['error' => 'Datenbankfehler: ' . $e->getMessage()]);
-} catch (Exception $e) {
-    // Return a generic error message if any other error occurs
-    http_response_code(500);
-    echo json_encode(['error' => 'Ein Fehler ist aufgetreten: ' . $e->getMessage()]);
-}
+    catch (PDOException $e) {
+        error_log('Database error: ' . $e->getMessage());  // Log error to server logs
+        http_response_code(500);
+        echo json_encode(['error' => 'Database error. Please try again later.']);
+    } catch (Exception $e) {
+        error_log('General error: ' . $e->getMessage());  // Log general error
+        http_response_code(500);
+        echo json_encode(['error' => 'An error occurred.']);
+    }
+    

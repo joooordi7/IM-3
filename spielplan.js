@@ -96,10 +96,10 @@ const players = [
     { "name": "Fermín López", "position": "Zentrales Mittelfeld" },
     { "name": "Dani Olmo", "position": "Offensives Mittelfeld" },
     { "name": "Pablo Torre", "position": "Offensives Mittelfeld" },
-    { "name": "Ansu Fati", "position": "Linksaußen" },
-    { "name": "Lamine Yamal", "position": "Rechtsaußen" },
-    { "name": "Raphinha", "position": "Rechtsaußen" },
-    { "name": "Ferran Torres", "position": "Rechtsaußen" },
+    { "name": "Ansu Fati", "position": "Linksaussen" },
+    { "name": "Lamine Yamal", "position": "Rechtsaussen" },
+    { "name": "Raphinha", "position": "Rechtsaussen" },
+    { "name": "Ferran Torres", "position": "Rechtsaussen" },
     { "name": "Robert Lewandowski", "position": "Mittelstürmer" },
     { "name": "Pau Víctor", "position": "Mittelstürmer" }
 ];
