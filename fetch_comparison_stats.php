@@ -6,7 +6,7 @@ header('Access-Control-Allow-Origin: *');
 require_once 'config.php';
 
 try {
-    // SQL query to fetch the current statistics for Hansi Flick
+    // SQL query to calculate statistics for Hansi Flick
     $sql = "
         SELECT 
             SUM(COALESCE(score_home, 0)) AS flick_score_home,
@@ -19,7 +19,7 @@ try {
             SUM(COALESCE(yellow_cards, 0)) AS flick_yellow_cards,
             SUM(COALESCE(red_cards, 0)) AS flick_red_cards
         FROM fc_barcelona_match_stats
-        WHERE date >= '2023-01-01'
+        WHERE date >= '2023-01-01';
     ";
 
     // Execute the SQL query
@@ -27,32 +27,30 @@ try {
     $stmt->execute();
     $flickStats = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Assemble comparison data (Xavi data can still be hardcoded or stored in the database)
-    $xaviStats = [
-        'score_home' => 45,
-        'score_away' => 30,
-        'win_percentage' => 65,
-        'ball_possession' => 65,
-        'shots' => 16,
-        'shots_on_goal' => 7,
-        'yellow_cards' => 1.5,
-        'red_cards' => 0.1
-    ];
-
+    // Assemble data for output (only Hansi Flick data)
     $comparisonData = [
-        'flick' => $flickStats,
-        'xavi' => $xaviStats
+        'flick' => [
+            'score_home' => $flickStats['flick_score_home'] ?? 0,
+            'score_away' => $flickStats['flick_score_away'] ?? 0,
+            'wins' => $flickStats['flick_wins'] ?? 0,
+            'games_played' => $flickStats['games_played'] ?? 1,  // Prevent division by zero
+            'ball_possession' => $flickStats['flick_ball_possession'] ?? 0,
+            'shots' => $flickStats['flick_shots'] ?? 0,
+            'shots_on_goal' => $flickStats['flick_shots_on_goal'] ?? 0,
+            'yellow_cards' => $flickStats['flick_yellow_cards'] ?? 0,
+            'red_cards' => $flickStats['flick_red_cards'] ?? 0
+        ]
     ];
 
-    // Output comparison data as JSON
+    // Output comparison data as JSON (only Flick's stats)
     echo json_encode($comparisonData, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
 } catch (PDOException $e) {
+    // Return a 500 error and the error message if the query fails
     http_response_code(500);
     echo json_encode(['error' => 'Datenbankfehler: ' . $e->getMessage()]);
+} catch (Exception $e) {
+    // Return a generic error message if any other error occurs
+    http_response_code(500);
+    echo json_encode(['error' => 'Ein Fehler ist aufgetreten: ' . $e->getMessage()]);
 }
-?>
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);

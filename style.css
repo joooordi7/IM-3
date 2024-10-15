@@ -120,6 +120,23 @@ td:last-child, th:last-child {
     border-right: none; /* Remove border for the last column */
 }
 
+/* Spezifische Anpassungen für die Spielerliste */
+#players {
+    width: 50%; /* Spielerliste ist nur halb so breit wie die Spielplan-Tabelle */
+    table-layout: auto;
+    margin: 0 auto; /* Tabelle wird in der Mitte des Containers ausgerichtet */
+    margin-bottom: 40px; /* Fügt ein Margin unterhalb der Tabelle hinzu für den Abstand zum Footer */
+}
+
+#players th, #players td {
+    padding: 8px 10px; /* Weniger Padding für die Spielerliste */
+    border-right: 1px solid #ddd; /* Behalte die Linie zwischen Spieler und Position bei */
+}
+
+#players th:last-child, #players td:last-child {
+    border-right: none; /* Entferne die rechte Grenze der letzten Spalte */
+}
+
 /* Hover effect for all rows */
 tbody tr:hover {
     background-color: var(--barca-yellow); /* Highlight row with yellow */
@@ -130,7 +147,6 @@ tbody tr:hover {
 .table-spacing {
     margin-top: 50px; /* Add space before the second table */
 }
-
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -165,6 +181,10 @@ tbody tr:hover {
 
     table {
         font-size: 1em;
+    }
+
+    #players {
+        width: 100%; /* Die Spielerliste-Tabelle nimmt auf kleinen Bildschirmen die volle Breite ein */
     }
 }
 

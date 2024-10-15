@@ -6,12 +6,12 @@
     <title>Hansi Flick Effekt | FC Barcelona</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script defer src="script.js"></script>
+    <script defer src="script.js"></script> <!-- Fetching data handled in script.js -->
 </head>
 <body>
     <header>
         <div class="logo-container">
-        <img src="images/fc_barcelona_logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
+            <img src="images/fc_barcelona_logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
         </div>
         <nav>
             <ul class="nav-links">
@@ -23,12 +23,12 @@
     <main>
         <h1>Der Hansi Flick Effekt</h1>
         <section id="introduction">
-            <p>Diese Webseite vergleicht die Leistungen des FC Barcelona unter Hansi Flick und Xavi anhand von wichtigen Statistiken wie Siegquote, Tore, Ballbesitz und Schüsse. Anhand von Diagrammen werden die unterschiedlichen Spielweisen der beiden Trainer veranschaulicht. Während Hansi Flick für schnelles Umschaltspiel und Effizienz steht, setzt Xavi auf den klassischen Ballbesitzfußball des FC Barcelona. Die Statistiken zu offensiven und defensiven Aspekten sowie Disziplinarfaktoren wie gelbe und rote Karten geben Einblick in die jeweilige Teamdynamik. </p>
+            <p>Diese Webseite vergleicht die Leistungen des FC Barcelona unter Hansi Flick und Xavi anhand von wichtigen Statistiken wie Siegquote, Tore, Ballbesitz und Schüsse. Anhand von Diagrammen werden die unterschiedlichen Spielweisen der beiden Trainer veranschaulicht. Während Hansi Flick für schnelles Umschaltspiel und Effizienz steht, setzt Xavi auf den klassischen Ballbesitzfußball des FC Barcelona. Die Statistiken zu offensiven und defensiven Aspekten sowie Disziplinarfaktoren wie gelbe und rote Karten geben Einblick in die jeweilige Teamdynamik.</p>
         </section>
 
         <section id="vergleich">
             <div id="vergleich-container">
-                <h2>Siegquote (%)</h2   >
+                <h2>Siegquote (%)</h2>
                 <div class="chart-container">
                     <canvas id="winPercentageChart"></canvas>
                 </div>
@@ -50,7 +50,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Abrufen der Vergleichsdaten von Hansi Flick und Xavi
+            // Fetch only Flick's stats dynamically
             fetch('fetch_comparison_stats.php')
                 .then(response => {
                     if (!response.ok) {
@@ -60,13 +60,25 @@
                 })
                 .then(data => {
                     const flickData = data.flick;
-                    const xaviData = data.xavi;
 
-                    if (!flickData || !xaviData) {
+                    // Static data for Xavi
+                    const xaviData = {
+                        'score_home': 45,
+                        'score_away': 30,
+                        'win_percentage': 65,
+                        'ball_possession': 65,
+                        'shots': 16,
+                        'shots_on_goal': 7,
+                        'yellow_cards': 1.5,
+                        'red_cards': 0.1
+                    };
+
+                    if (!flickData) {
                         document.getElementById('error-message').innerText = 'Daten konnten nicht geladen werden.';
                         return;
                     }
 
+                    // Initialize charts with both Flick and Xavi's data
                     initCharts(flickData, xaviData);
                 })
                 .catch(error => {
