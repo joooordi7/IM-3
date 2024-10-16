@@ -234,7 +234,7 @@ function updatePossessionYellowCardsChart(FlickStats, XaviStats) {
             labels: ['Flick Ballbesitz', 'Xavi Ballbesitz'],
             datasets: [{
                 data: [FlickStats.ballPossession, XaviStats.ballPossession],
-                backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 99, 132, 0.5)']
+                backgroundColor: ['rgba(144, 238, 144, 1)', 'rgba(255, 99, 132, 0.5)']
             }]
         }
     });
@@ -246,7 +246,7 @@ function updatePossessionYellowCardsChart(FlickStats, XaviStats) {
             labels: ['Flick Gelbe Karten', 'Xavi Gelbe Karten'],
             datasets: [{
                 data: [FlickStats.yellowCards, XaviStats.yellowCards],
-                backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 99, 132, 0.5)']
+                backgroundColor: ['rgba(144, 238, 144, 1)', 'rgba(255, 99, 132, 0.5)']
             }]
         }
     });
