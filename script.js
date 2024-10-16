@@ -14,10 +14,13 @@ async function fetchData(url) {
         if (!response.ok) {
             throw new Error(`Fehler beim Abrufen der Daten von ${url}`);
         }
-        return await response.json();
+        const data = await response.json();
+        console.log(`Daten von ${url}:`, data); // Debugging: Daten anzeigen
+        return data;
     } catch (error) {
         console.error(error);
         document.getElementById('error-message').innerText = 'Fehler beim Laden der Daten.';
+        throw error; // Fehler weiterwerfen, falls der Abruf fehlschlägt
     }
 }
 
@@ -33,12 +36,16 @@ async function loadMatchData() {
             yellowCards: (await fetchData('yellow_cards.php')).total_yellow_cards
         };
 
-        // Daten anzeigen (optional, falls gewünscht)
+        console.log('Alle Daten erfolgreich geladen:', FlickStats);
+
+        // Entfernte Textanzeigen, da die HTML-Elemente nicht mehr vorhanden sind
+        /*
         document.getElementById('ball-possession').innerText = `Durchschnittlicher Ballbesitz: ${FlickStats.ballPossession.toFixed(2)}%`;
         document.getElementById('total-wins').innerText = `Gesamte Siege: ${FlickStats.totalWins}`;
         document.getElementById('total-goals').innerText = `Erzielte Tore: ${FlickStats.totalGoals}`;
         document.getElementById('total-shots').innerText = `Gesamte Schüsse: ${FlickStats.totalShots}`;
         document.getElementById('yellow-cards').innerText = `Gelbe Karten: ${FlickStats.yellowCards}`;
+        */
 
         // Diagramme aktualisieren
         updateWinsChart(FlickStats, XaviStats);
@@ -131,7 +138,6 @@ function updateWinsChart(FlickStats, XaviStats) {
     });
 }
 
-
 // Funktion zum Aktualisieren des Balkendiagramms für totalShots vs totalGoals
 function updateShotsGoalsChart(FlickStats, XaviStats) {
     const ctx = document.getElementById('shotsGoalsChart').getContext('2d');
@@ -222,8 +228,6 @@ function updateShotsGoalsChart(FlickStats, XaviStats) {
         }
     });
 }
-
-
 
 // Funktion zum Aktualisieren der Kreisdiagramme für ballPossession und yellowCards
 function updatePossessionYellowCardsChart(FlickStats, XaviStats) {
