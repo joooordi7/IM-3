@@ -54,15 +54,25 @@ async function loadMatchData() {
 // Funktion zum Aktualisieren des Liniendiagramms für totalWins pro Spieltag mit den angegebenen Siegen
 function updateWinsChart(FlickStats, XaviStats) {
     const ctx = document.getElementById('winsChart').getContext('2d');
-    
+
     // Spieltage als Labels
     const matchDays = ['Spieltag 1', 'Spieltag 2', 'Spieltag 3', 'Spieltag 4', 'Spieltag 5', 'Spieltag 6', 'Spieltag 7', 'Spieltag 8', 'Spieltag 9'];
 
-    // Siege für Flick an den jeweiligen Spieltagen
-    const flickWinsPerMatchDay = [1, 2, 3, 4, 5, 6, 7, 7, 8];
+    // Siege für Flick und Xavi an den jeweiligen Spieltagen (kumulative Anzahl der Siege)
+    const flickWinsPerMatchDay = [1, 2, 3, 4, 5, 6, 7, 7, 8]; // Kumulierte Siege
+    const xaviWinsPerMatchDay = [1, 1, 2, 2, 2, 2, 3, 3, 4];  // Kumulierte Siege
 
-    // Siege für Xavi an den jeweiligen Spieltagen
-    const xaviWinsPerMatchDay = [1, 1, 2, 2, 2, 2, 3, 3, 4];
+    // Funktion zur Berechnung des Gewinnprozentsatzes nach jedem Spieltag
+    const calculateWinPercentage = (winsArray) => {
+        return winsArray.map((totalWins, index) => {
+            const gamesPlayed = index + 1; // Anzahl der gespielten Spiele bis zu diesem Spieltag
+            return (totalWins / gamesPlayed) * 100; // Gewinnprozentsatz für den jeweiligen Spieltag
+        });
+    };
+
+    // Gewinnprozentsatz für Flick und Xavi
+    const flickWinPercentages = calculateWinPercentage(flickWinsPerMatchDay);
+    const xaviWinPercentages = calculateWinPercentage(xaviWinsPerMatchDay);
 
     new Chart(ctx, {
         type: 'line',
@@ -87,10 +97,12 @@ function updateWinsChart(FlickStats, XaviStats) {
                 tooltip: {
                     callbacks: {
                         label: function (tooltipItem) {
-                            // Zeigt den Gewinnprozentsatz an, basierend auf den Daten
-                            const totalMatches = 9;
-                            const wins = tooltipItem.raw;
-                            const percentage = (wins / totalMatches) * 100;
+                            // Berechnung des Gewinnprozentsatzes für die Tooltip-Anzeige
+                            const index = tooltipItem.dataIndex;
+                            const datasetLabel = tooltipItem.dataset.label;
+                            const percentage = datasetLabel === 'Flick Siege' 
+                                ? flickWinPercentages[index]
+                                : xaviWinPercentages[index];
                             return `Gewinnprozentsatz: ${percentage.toFixed(2)}%`;
                         }
                     }
@@ -119,40 +131,99 @@ function updateWinsChart(FlickStats, XaviStats) {
     });
 }
 
+
 // Funktion zum Aktualisieren des Balkendiagramms für totalShots vs totalGoals
 function updateShotsGoalsChart(FlickStats, XaviStats) {
     const ctx = document.getElementById('shotsGoalsChart').getContext('2d');
     new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ['Schüsse', 'Tore'],
+            labels: ['Schüsse', 'Tore'], // Zwei Labels für Schüsse und Tore
             datasets: [{
                 label: 'Flick',
-                data: [FlickStats.totalShots, FlickStats.totalGoals],
-                backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
+                data: [FlickStats.totalShots, FlickStats.totalGoals], // Schüsse und Tore von Flick
+                backgroundColor: 'rgba(144, 238, 144, 1)'
             }, {
                 label: 'Xavi',
-                data: [XaviStats.totalShots, XaviStats.totalGoals],
-                backgroundColor: 'rgba(255, 99, 132, 0.5)',
-                borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
+                data: [XaviStats.totalShots, XaviStats.totalGoals], // Schüsse und Tore von Xavi
+                backgroundColor: 'rgba(255, 99, 132, 0.5)', // Rote Farbe für Xavi
             }]
         },
         options: {
             scales: {
                 y: {
-                    beginAtZero: true,
+                    beginAtZero: true, // Startet die Y-Achse bei 0
                     title: {
                         display: true,
-                        text: 'Anzahl'
+                        text: 'Anzahl', // Y-Achsenbeschriftung
+                        font: {
+                            size: 16, // Schriftgröße
+                            weight: 'bold' // Schriftstil fett
+                        }
+                    },
+                    ticks: {
+                        font: {
+                            size: 14, // Schriftgröße der Werte auf der Y-Achse
+                            weight: 'bold' // Schriftstil fett für die Werte
+                        }
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Schüsse und Tore', // X-Achsenbeschriftung
+                        font: {
+                            size: 16, // Schriftgröße
+                            weight: 'bold' // Schriftstil fett
+                        }
+                    },
+                    ticks: {
+                        font: {
+                            size: 14, // Schriftgröße der Werte auf der X-Achse
+                        }
+                    }
+                }
+            },
+            layout: {
+                padding: {
+                    left: 20, // Padding links
+                    right: 20, // Padding rechts
+                    top: 20, // Padding oben
+                    bottom: 30 // Padding unten
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#000', // Schwarze Schriftfarbe für die Legende
+                        font: {
+                            size: 14, // Schriftgröße der Legende
+                            weight: 'bold' // Fettgedruckte Legende
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        // Entfernt das farbige Kästchen komplett
+                        label: function(tooltipItem) {
+                            const datasetLabel = tooltipItem.dataset.label || '';
+                            const value = tooltipItem.raw;
+                            return datasetLabel + ': ' + value;
+                        },
+                        labelColor: function() {
+                            return {
+                                backgroundColor: 'rgba(0, 0, 0, 0)',
+                                borderColor: 'rgba(0, 0, 0, 0)'
+                            };
+                        }
                     }
                 }
             }
         }
     });
 }
+
+
 
 // Funktion zum Aktualisieren der Kreisdiagramme für ballPossession und yellowCards
 function updatePossessionYellowCardsChart(FlickStats, XaviStats) {

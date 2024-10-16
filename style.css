@@ -190,28 +190,51 @@ tbody tr:hover {
 
 /* Canvas für Diagramme */
 canvas {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: white;
     border-radius: 10px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
 }
 
-canvas:hover {
-    transform: scale(1.05); /* Vergrößert die Diagramme leicht beim Hover */
-}
-
 /* Spezifische Anpassung für die Chart-Container */
 .chart-container {
     display: flex;
-    justify-content: space-around; /* Stellt sicher, dass die Diagramme nebeneinander stehen */
+    justify-content: space-around; /* Gleichmäßiger Abstand zwischen den Diagrammen */
     align-items: center;
-    margin-top: 20px; /* Fügt etwas Platz oberhalb der Diagramme hinzu */
+    width: 100%; /* Volle Breite des Containers */
+    max-width: 1000px; /* Maximale Breite für den Container */
+    margin: 0 auto; /* Zentriert den Container */
+    padding: 20px; /* Innenabstand für mehr Platz zu den Rändern */
+    background-color: white; /* Hintergrundfarbe des Containers auf weiß setzen */
+    border-radius: 10px; /* Leichte Abrundung der Ecken */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Leichter Schatten für den Container */
+    box-sizing: border-box; /* Inklusive Padding in der Breite */
+    height: auto; /* Automatische Höhe basierend auf Inhalt */
 }
 
+/* Canvas für Kreisdiagramme */
 .chart-container canvas {
-    width: 200px;  /* Setzt die Breite des Diagramms auf 200px */
-    height: 200px; /* Setzt die Höhe des Diagramms auf 200px */
+    width: 45%;  /* Jedes Diagramm nimmt maximal 45% der Containerbreite ein */
+    height: auto; /* Höhe proportional zur Breite */
+    max-width: 400px; /* Feste maximale Breite für jedes Diagramm */
+    max-height: 400px; /* Feste maximale Höhe für jedes Diagramm */
+    margin: 0 20px; /* Fügt einen kleinen Abstand zwischen den Diagrammen hinzu */
 }
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+    .chart-container {
+        flex-direction: column; /* Stapelt die Diagramme untereinander bei kleineren Bildschirmen */
+    }
+
+    .chart-container canvas {
+        width: 80%; /* Breite auf 80% setzen bei kleineren Bildschirmen */
+        margin-bottom: 20px; /* Fügt Abstand zwischen den gestapelten Diagrammen hinzu */
+        max-width: 300px; /* Reduzierte maximale Breite bei kleineren Bildschirmen */
+        max-height: 300px; /* Reduzierte maximale Höhe bei kleineren Bildschirmen */
+    }
+}
+
 
 /* Footer styling */
 footer {
