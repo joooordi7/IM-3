@@ -58,7 +58,6 @@ async function loadMatchData() {
     }
 }
 
-// Funktion zum Aktualisieren des Liniendiagramms für totalWins pro Spieltag mit den angegebenen Siegen
 function updateWinsChart(FlickStats, XaviStats) {
     const ctx = document.getElementById('winsChart').getContext('2d');
 
@@ -88,55 +87,109 @@ function updateWinsChart(FlickStats, XaviStats) {
             datasets: [{
                 label: 'Flick Siege',
                 data: flickWinsPerMatchDay,
-                fill: false,
-                borderColor: 'rgba(75, 192, 192, 1)',
+                borderColor: 'rgba(144, 238, 144, 1)', // Hintergrundfarbe Grün für Flick
+                backgroundColor: 'rgba(144, 238, 144, 1)', // Hintergrundfarbe Grün für F
                 tension: 0.1
             }, {
                 label: 'Xavi Siege',
                 data: xaviWinsPerMatchDay,
-                fill: false,
-                borderColor: 'rgba(255, 99, 132, 1)',
+                borderColor: 'rgba(255, 99, 132, 1)', // Hintergrundfarbe Rot für Xavi
+                backgroundColor: 'rgba(255, 99, 132, 1)', // Hintergrundfarbe Rot für Xavi
                 tension: 0.1
             }]
         },
         options: {
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: function (tooltipItem) {
-                            // Berechnung des Gewinnprozentsatzes für die Tooltip-Anzeige
-                            const index = tooltipItem.dataIndex;
-                            const datasetLabel = tooltipItem.dataset.label;
-                            const percentage = datasetLabel === 'Flick Siege' 
-                                ? flickWinPercentages[index]
-                                : xaviWinPercentages[index];
-                            return `Gewinnprozentsatz: ${percentage.toFixed(2)}%`;
-                        }
-                    }
-                }
-            },
             scales: {
                 y: {
-                    beginAtZero: true,
-                    max: 9, // Setzt das Maximum der Y-Achse auf 9
+                    beginAtZero: true, // Startet die Y-Achse bei 0
                     title: {
                         display: true,
-                        text: 'Anzahl Siege'
+                        text: 'Anzahl', // Y-Achsenbeschriftung
+                        padding: 20, // Abstand zwischen Y-Achsenbeschriftung und Y-Achsenwerten    
+                        font: {
+                            size: 16, // Schriftgröße der Y-Achsenbeschriftung
+                            weight: 'bold' // Schriftstil fett für Y-Achsenbeschriftung
+                        }
                     },
                     ticks: {
-                        stepSize: 1 // Siege können nur ganze Zahlen sein
+                        font: {
+                            padding: 5, // Abstand zwischen Y-Achseneinheiten und Y-Achsenbeschriftung
+                            size: 14, // Schriftgröße der Y-Achseneinheiten
+                            weight: 'bold' // Schriftstil fett für Y-Achseneinheiten
+                        }
                     }
                 },
                 x: {
                     title: {
                         display: true,
-                        text: 'Spieltage'
+                        text: 'Spieltage', // X-Achsenbeschriftung
+                        padding: 20, // Abstand zwischen X-Achsenbeschriftung und X-A
+                        font: {
+                            size: 16, // Schriftgröße der X-Achsenbeschriftung
+                            weight: 'bold' // Schriftstil fett für X-Achsenbeschriftung
+                        }
+                    },
+                    ticks: {
+                        font: {
+                            padding: 2, // Abstand zwischen X-Achseneinheiten und X-Achsenbeschriftung
+                            size: 14, // Schriftgröße der X-Achseneinheiten
+                            weight: 'bold' // Schriftstil fett für X-Achseneinheiten
+                        }
                     }
+                }
+            },
+            layout: {
+                padding: {
+                    left: 5,  // Padding links
+                    right: 10, // Padding rechts
+                    top: 20,   // Padding oben
+                    bottom: 20 // Padding unten
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#000', // Schwarze Schriftfarbe für die Legende
+                        font: {
+                            size: 14, // Schriftgröße der Legende
+                            weight: 'bold' // Schriftstil fett für die Legende
+                        }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            const index = tooltipItem.dataIndex;
+                            const datasetLabel = tooltipItem.dataset.label;
+                            const percentage = datasetLabel === 'Flick Siege' 
+                                ? flickWinPercentages[index]
+                                : xaviWinPercentages[index];
+                            return `Siegesquote: ${Math.round(percentage)}%`; // Runde auf ganze Zahlen
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const index = tooltipItem.dataIndex;
+                                const datasetLabel = tooltipItem.dataset.label;
+                                const percentage = datasetLabel === 'Flick Siege' 
+                                    ? flickWinPercentages[index]
+                                    : xaviWinPercentages[index];
+                                return `Siegesquote: ${Math.round(percentage)}%`; // Runde auf ganze Zahlen
+                            }
+                        },
+                        // Entferne das Kästchen neben dem Tooltip
+                        displayColors: false // Verhindert die Anzeige des farbigen Kästchens
+                    }
+                    
                 }
             }
         }
     });
 }
+
+
+
 
 // Funktion zum Aktualisieren des Balkendiagramms für totalShots vs totalGoals
 function updateShotsGoalsChart(FlickStats, XaviStats) {
