@@ -1,13 +1,12 @@
 ## Kurzbeschreibung des Projekts
 
-Dieses Projekt visualisiert statistische Daten über die Leistungen des FC Barcelona unter den Trainern Hansi Flick und Xavi. Mithilfe von Diagrammen werden verschiedene Spielstatistiken wie Siegesquote, Ballbesitz, Tore, Schüsse und gelbe Karten dargestellt. Ziel der Webseite ist es, die Unterschiede in der Spielweise der beiden Trainer zu verdeutlichen und die Ergebnisse übersichtlich aufzubereiten. Die Daten werden aus unserer Datenbank geladen und statisch aus dem js. Dokument geladen. Um der Webseite noch etwas mehr Inhalt zu verleihen, bieten wir eine Übersicht zu den nächsten Spielen und dem aktuellen Kader des FC Barcelona.
+Dieses Projekt visualisiert statistische Daten über die Leistungen des FC Barcelona unter den Trainern Hansi Flick und Xavi. Mithilfe von Diagrammen werden verschiedene Spielstatistiken wie Siegesquote, Ballbesitz, Tore, Schüsse und gelbe Karten dargestellt. Ziel der Webseite ist es, die Unterschiede in der Spielweise der beiden Trainer zu verdeutlichen und die Ergebnisse übersichtlich aufzubereiten. Die Daten werden aus unserer Datenbank geladen und zusätzlich statisch aus dem js. Dokument geladen. Um der Webseite noch etwas mehr Inhalt zu verleihen, bieten wir eine Übersicht zu den nächsten Spielen und dem aktuellen Kader des FC Barcelona.
 
 ## Learnings
 
 - Das fetchen von Informationen aus einer Datenbank
 - Integration der gefetchten Daten in verschiedene Diagramme
 - Umwandlung von Daten in ein für die Webseite passendes Format
-- Erstellung dynamischer Inhalte mittels fetch().
 
 ## Schwierigkeiten
 
