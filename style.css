@@ -52,6 +52,9 @@ nav ul {
 nav ul li a {
     color: var(--barca-white);
     text-decoration: none;
+    font-family: "Fugaz One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     font-weight: bold;
     font-size: 1.5rem;
     transition: color 0.3s ease;
@@ -70,9 +73,20 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center; /* H-Titel zentrieren */
 }
 
+h2 {
+    font-size: 2.0rem;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 /* Main Content */
 main {
-    padding: 0 40px; /* Padding links und rechts hinzufügen */
+    padding: 0 60px; /* Padding links und rechts hinzufügen */
 }
 
 /* General table styling */
@@ -219,44 +233,41 @@ canvas {
     }
 }
 
-/* Filter Container Styling */
-#filter-container {
-    margin: 20px 0 30px; /* Add more spacing above and below the filter */
-    text-align: center; /* Center the filter on the page */
-    padding: 15px; /* Add padding around the filter */
-    background-color: var(--barca-granate); /* Granate background for the container */
-    border-radius: 10px; /* Rounded corners for a smoother look */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a subtle shadow for depth */
+/* Filter Optionen */
+.filter-select {
+    -webkit-appearance: none;  /* Für Safari/Chrome */
+    -moz-appearance: none;     /* Für Firefox */
+    appearance: none;          /* Für moderne Browser */
+    background-color: var(--barca-granate); /* Behalte das Styling bei */
+    padding: 15px;
+    font-size: 1.2em;
+    color: var(--barca-white);
+    border: none;
+    border-radius: 8px;
+    width: 250px;
+    box-shadow: 0 4px 10px rgba(3, 3, 3, 0.15);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-align-last: center;  /* Zentriert den Text */
+    display: block;
+    margin: 20px auto;
 }
 
-/* Filter Label Styling */
-#filter-container label {
-    color: var(--barca-yellow);  /* Yellow text for the label */
-    font-weight: bold;           /* Bold font for emphasis */
-    font-size: 1.2rem;           /* Increase the font size for better readability */
-    margin-right: 10px;          /* Add space between the label and the dropdown */
+/* Hover-Effekt für Dropdown */
+.filter-select:hover {
+    background-color: var(--barca-yellow); /* Gelb beim Hover */
+    color: var(--barca-blue); /* Dunkler Text beim Hover */
+    transform: scale(1.05);   /* Leichtes Vergrößern beim Hover */
+    cursor: pointer;
 }
 
-/* Dropdown Styling */
-#position-filter {
-    padding: 10px 15px; /* Add padding for a larger click area */
-    font-size: 1.1rem;  /* Slightly larger font for the dropdown */
-    background-color: var(--barca-blue); /* Barca Blue background for the dropdown */
-    color: var(--barca-white); /* White text for the options */
-    border: 2px solid var(--barca-yellow); /* Yellow border for consistency */
-    border-radius: 5px; /* Rounded edges to match the overall look */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effects */
-    cursor: pointer; /* Indicate it's interactive */
+/* Dropdown-Optionen Styling */
+.filter-select option {
+    background-color: var(--barca-granate); /* Granate als Option-Hintergrund */
+    color: var(--barca-white);              /* Weiße Schrift für Optionen */
 }
 
-/* Dropdown Option Styling */
-#position-filter option {
-    color: var(--barca-blue); /* Barca Blue for the dropdown options text */
-    background-color: var(--barca-white); /* White background for the options */
-}
-
-/* Hover effect for the dropdown */
-#position-filter:hover {
-    background-color: var(--barca-yellow); /* Yellow background on hover */
-    color: var(--barca-blue); /* Blue text on hover for contrast */
+/* Abstand zwischen dem Filter und den anderen Elementen */
+.filter-select {
+    margin-top: 20px;  /* Abstand über dem Dropdown */
+    margin-bottom: 30px; /* Abstand unter dem Dropdown */
 }

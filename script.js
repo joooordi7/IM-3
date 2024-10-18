@@ -87,14 +87,14 @@ function updateWinsChart(FlickStats, XaviStats) {
             datasets: [{
                 label: 'Flick Siege',
                 data: flickWinsPerMatchDay,
-                borderColor: 'rgba(144, 238, 144, 1)', // Hintergrundfarbe Grün für Flick
-                backgroundColor: 'rgba(144, 238, 144, 1)', // Hintergrundfarbe Grün für F
+                borderColor: 'rgba(144, 238, 144, 1)', 
+                backgroundColor: 'rgba(144, 238, 144, 1)',
                 tension: 0.1
             }, {
                 label: 'Xavi Siege',
                 data: xaviWinsPerMatchDay,
-                borderColor: 'rgba(255, 99, 132, 1)', // Hintergrundfarbe Rot für Xavi
-                backgroundColor: 'rgba(255, 99, 132, 1)', // Hintergrundfarbe Rot für Xavi
+                borderColor: 'rgba(255, 99, 132, 1)', 
+                backgroundColor: 'rgba(255, 99, 132, 1)', 
                 tension: 0.1
             }]
         },
@@ -104,7 +104,7 @@ function updateWinsChart(FlickStats, XaviStats) {
                     beginAtZero: true, // Startet die Y-Achse bei 0
                     title: {
                         display: true,
-                        text: 'Anzahl', // Y-Achsenbeschriftung
+                        text: 'Anzahl Siege', // Y-Achsenbeschriftung
                         padding: 20, // Abstand zwischen Y-Achsenbeschriftung und Y-Achsenwerten    
                         font: {
                             size: 16, // Schriftgröße der Y-Achsenbeschriftung
@@ -141,9 +141,9 @@ function updateWinsChart(FlickStats, XaviStats) {
             layout: {
                 padding: {
                     left: 5,  // Padding links
-                    right: 10, // Padding rechts
+                    right: 50, // Padding rechts
                     top: 20,   // Padding oben
-                    bottom: 20 // Padding unten
+                    bottom: 10 // Padding unten
                 }
             },
             plugins: {
@@ -178,8 +178,6 @@ function updateWinsChart(FlickStats, XaviStats) {
                                 return `Siegesquote: ${Math.round(percentage)}%`; // Runde auf ganze Zahlen
                             }
                         },
-                        // Entferne das Kästchen neben dem Tooltip
-                        displayColors: false // Verhindert die Anzeige des farbigen Kästchens
                     }
                     
                 }
@@ -205,7 +203,7 @@ function updateShotsGoalsChart(FlickStats, XaviStats) {
             }, {
                 label: 'Xavi',
                 data: [XaviStats.totalShots, XaviStats.totalGoals], // Schüsse und Tore von Xavi
-                backgroundColor: 'rgba(255, 99, 132, 0.5)', // Rote Farbe für Xavi
+                backgroundColor: 'rgba(255, 99, 132, 1)', // Rote Farbe für Xavi
             }]
         },
         options: {
@@ -246,7 +244,7 @@ function updateShotsGoalsChart(FlickStats, XaviStats) {
             layout: {
                 padding: {
                     left: 20, // Padding links
-                    right: 20, // Padding rechts
+                    right: 40, // Padding rechts
                     top: 20, // Padding oben
                     bottom: 30 // Padding unten
                 }
@@ -284,28 +282,105 @@ function updateShotsGoalsChart(FlickStats, XaviStats) {
 
 // Funktion zum Aktualisieren der Kreisdiagramme für ballPossession und yellowCards
 function updatePossessionYellowCardsChart(FlickStats, XaviStats) {
+    // Kreisdiagramm für Ballbesitz (mit Prozenten)
     const possessionCtx = document.getElementById('possessionChart').getContext('2d');
     new Chart(possessionCtx, {
         type: 'doughnut',
         data: {
-            labels: ['Flick Ballbesitz', 'Xavi Ballbesitz'],
+            labels: ['Flick', 'Xavi'],
             datasets: [{
                 data: [FlickStats.ballPossession, XaviStats.ballPossession],
-                backgroundColor: ['rgba(144, 238, 144, 1)', 'rgba(255, 99, 132, 0.5)']
+                backgroundColor: ['rgba(144, 238, 144, 1)', 'rgba(255, 99, 132, 1)']
             }]
-        }
+        },
+        options: {
+            plugins: {
+                // Legende oberhalb des Diagramms hinzufügen
+                title: {
+                    display: true,
+                    text: 'Durchschnittlicher Ballbesitz', // Überschrift für Ballbesitz
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 30 // Abstand zwischen Titel und Diagramm
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            const total = 100; // Ballbesitz ist in Prozent, daher ist der Gesamtwert immer 100%
+                            const currentValue = tooltipItem.raw;
+                            const percentage = Math.round((currentValue / total) * 100);
+                            return `${tooltipItem.label}: ${percentage}%`;
+                        }
+                    }
+                },
+                datalabels: {
+                    formatter: (value) => {
+                        const percentage = Math.round(value); // Wert wird direkt als Prozent angezeigt
+                        return percentage + '%';
+                    },
+                    color: '#fff',
+                    font: {
+                        size: 14,
+                        weight: 'bold'
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels] // Aktiviert das DataLabels-Plugin
     });
 
+    // Kreisdiagramm für gelbe Karten (mit der Anzahl in den Segmenten)
     const yellowCardsCtx = document.getElementById('yellowCardsChart').getContext('2d');
     new Chart(yellowCardsCtx, {
         type: 'doughnut',
         data: {
-            labels: ['Flick Gelbe Karten', 'Xavi Gelbe Karten'],
+            labels: ['Flick', 'Xavi'],
             datasets: [{
                 data: [FlickStats.yellowCards, XaviStats.yellowCards],
-                backgroundColor: ['rgba(144, 238, 144, 1)', 'rgba(255, 99, 132, 0.5)']
+                backgroundColor: ['rgba(144, 238, 144, 1)', 'rgba(255, 99, 132, 1)']
             }]
-        }
+        },
+        options: {
+            plugins: {
+                // Legende oberhalb des Diagramms hinzufügen
+                title: {
+                    display: true,
+                    text: 'Gelbe Karten nach 9 Spielen', // Überschrift für Gelbe Karten
+                    font: {
+                        size: 18,
+                        weight: 'bold'
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 30 // Abstand zwischen Titel und Diagramm
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            const currentValue = tooltipItem.raw;
+                            return `${tooltipItem.label}: ${currentValue}`; // Zeige die tatsächlichen Werte der Gelben Karten
+                        }
+                    }
+                },
+                datalabels: {
+                    formatter: (value) => {
+                        return value; // Zeigt die tatsächliche Anzahl der gelben Karten im Segment an
+                    },
+                    color: '#fff',
+                    font: {
+                        size: 14,
+                        weight: 'bold'
+                    }
+                }
+            }
+        },
+        plugins: [ChartDataLabels] // Aktiviert das DataLabels-Plugin
     });
 }
 

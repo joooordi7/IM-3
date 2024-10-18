@@ -9,12 +9,16 @@
 </head>
 <body>
     <header>
-        <div class="logo-container">
-        <img src="images/fc_barcelona_logo.png" alt="FC Barcelona Logo" id="fcbarcelona-logo" />
-        </div>
+        <!-- Logo-Bereich -->
+<div class="logo-container">
+    <a href="index.html"> <!-- Verlinkung zur index.html -->
+        <img src="images/fc_barcelona_logo.png" alt="Logo" class="logo">
+    </a>
+</div>
+
         <nav>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html">HOME</a></li>
             </ul>
         </nav>
     </header>
@@ -44,22 +48,22 @@
         <section id="spielerliste">
             <h2>KADER 2024/2025</h2>
             
-            <!-- Filter-Dropdown für die Positionen -->
-            <div id="filter-container">
-                <select id="position-filter">
-                    <option value="all">Alle Positionen</option>
-                    <option value="Torwart">Torwart</option>
-                    <option value="Innenverteidiger">Innenverteidiger</option>
-                    <option value="Linker Verteidiger">Linker Verteidiger</option>
-                    <option value="Rechter Verteidiger">Rechter Verteidiger</option>
-                    <option value="Defensives Mittelfeld">Defensives Mittelfeld</option>
-                    <option value="Zentrales Mittelfeld">Zentrales Mittelfeld</option>
-                    <option value="Offensives Mittelfeld">Offensives Mittelfeld</option>
-                    <option value="Linksaussen">Linksaussen</option>
-                    <option value="Rechtsaussen">Rechtsaussen</option>
-                    <option value="Mittelstürmer">Mittelstürmer</option>
-                </select>
-            </div>
+            <!-- Filter-Dropdown für die Positionen (ohne Beschriftung) -->
+<select id="position-filter" class="filter-select">
+    <option value="all">Alle Positionen</option>
+    <option value="Torwart">Torwart</option>
+    <option value="Innenverteidiger">Innenverteidiger</option>
+    <option value="Linker Verteidiger">Linker Verteidiger</option>
+    <option value="Rechter Verteidiger">Rechter Verteidiger</option>
+    <option value="Defensives Mittelfeld">Defensives Mittelfeld</option>
+    <option value="Zentrales Mittelfeld">Zentrales Mittelfeld</option>
+    <option value="Offensives Mittelfeld">Offensives Mittelfeld</option>
+    <option value="Linksaussen">Linksaussen</option>
+    <option value="Rechtsaussen">Rechtsaussen</option>
+    <option value="Mittelstürmer">Mittelstürmer</option>
+</select>
+
+
             
             <div class="table-responsive">
                 <table id="players">
